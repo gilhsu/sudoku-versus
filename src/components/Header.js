@@ -61,12 +61,12 @@ const Header = ({ settings, setDifficultyAction }) => {
               handleClick={() => setDifficultyAction(DIFFICULTY.e)}
             />
             <DifficultyButton
-              title="MEDIUM"
+              title={DIFFICULTY.m}
               difficulty={difficulty}
               handleClick={() => setDifficultyAction(DIFFICULTY.m)}
             />
             <DifficultyButton
-              title="HARD"
+              title={DIFFICULTY.h}
               difficulty={difficulty}
               handleClick={() => setDifficultyAction(DIFFICULTY.h)}
             />
