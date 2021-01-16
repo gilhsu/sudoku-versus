@@ -2,10 +2,9 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import LocalCafeIcon from "@material-ui/icons/LocalCafe";
+
+import TitleTypography from "./TitleTypography";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,61 +12,57 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     borderBottom: "1px solid lightgray",
+    minHeight: "100px",
   },
   subheader: {
-    padding: "5px",
     borderBottom: "1px solid lightgray",
+    minHeight: "50px",
   },
-  menuButton: {
-    // marginRight: theme.spacing(2),
+  subheaderButton: {
+    "&:hover": {
+      color: theme.palette.primary.main,
+      backgroundColor: "transparent",
+    },
   },
-  title: {
+  difficultyContainer: {
     flexGrow: 1,
   },
 }));
 
-export default function ButtonAppBar() {
+export default function Header() {
   const classes = useStyles();
+
+  const SubheaderButton = ({ title }) => {
+    return (
+      <Button color="secondary" className={classes.subheaderButton}>
+        {title}
+      </Button>
+    );
+  };
 
   return (
     <div className={classes.root}>
-      <AppBar
-        position="static"
-        color="transparent"
-        elevation={0}
-        className={classes.header}
-      >
-        <Toolbar>
-          <Typography variant="h6" className={classes.title} color="primary">
-            SUDOKU VERSUS
-          </Typography>
-
+      <AppBar position="static" color="transparent" elevation={0}>
+        <Toolbar className={classes.header}>
+          <TitleTypography>SUDOKU VERSUS</TitleTypography>
           <Button
-            elevation={0}
-            // size="small"
+            size="large"
+            variant="contained"
             color="primary"
+            disableElevation
           >
             Rules
           </Button>
         </Toolbar>
       </AppBar>
-      <AppBar
-        position="static"
-        color="transparent"
-        elevation={0}
-        className={classes.subheader}
-      >
-        <Toolbar>
-          <Button elevation={0}>EASY</Button>
-          <Button elevation={0} color="grey">
-            MEDIUM
-          </Button>
-          <Button elevation={0} color="grey">
-            HARD
-          </Button>
-          <Button elevation={0} color="gray">
-            BUY ME COFFEE
-          </Button>
+      <AppBar position="static" color="transparent" elevation={0}>
+        <Toolbar className={classes.subheader}>
+          <div className={classes.difficultyContainer}>
+            <SubheaderButton title="EASY" />
+            <SubheaderButton title="MEDIUM" />
+            <SubheaderButton title="HARD" />
+          </div>
+          <SubheaderButton title="BUY ME COFFEE" />
         </Toolbar>
       </AppBar>
     </div>
