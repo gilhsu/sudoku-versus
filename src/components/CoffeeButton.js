@@ -13,19 +13,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DifficultyButton = ({ title, handleClick, difficulty }) => {
+const CoffeeButton = () => {
   const classes = useStyles();
-  const buttonColor = title === difficulty ? "primary" : "secondary";
 
   return (
     <Button
-      color={buttonColor}
+      color="secondary"
       className={classes.button}
-      onClick={handleClick}
+      onClick={() => alert("you just bought me $1M of coffee!")}
     >
-      {title}
+      BUY ME COFFEE
     </Button>
   );
 };
 
-export default DifficultyButton;
+export default CoffeeButton;

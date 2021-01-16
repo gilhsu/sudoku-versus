@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 
 import TitleTypography from "./TitleTypography";
 import DifficultyButton from "./DifficultyButton";
+import CoffeeButton from "./CoffeeButton";
 import { DIFFICULTY, setDifficulty } from "../features/settings/settingsSlice";
 
 const useStyles = makeStyles((theme) => ({
@@ -34,21 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = ({ settings, setDifficultyAction }) => {
   const { difficulty } = settings;
-  console.log("difficulty", difficulty);
   const classes = useStyles();
-
-  const SubheaderButton = ({ title, difficulty, handleClick }) => {
-    const buttonColor = title === difficulty ? "primary" : "secondary";
-    return (
-      <Button
-        color={buttonColor}
-        className={classes.subheaderButton}
-        onClick={handleClick}
-      >
-        {title}
-      </Button>
-    );
-  };
 
   return (
     <div className={classes.root}>
@@ -69,7 +56,7 @@ const Header = ({ settings, setDifficultyAction }) => {
         <Toolbar className={classes.subheader}>
           <div className={classes.difficultyContainer}>
             <DifficultyButton
-              title="EASY"
+              title={DIFFICULTY.e}
               difficulty={difficulty}
               handleClick={() => setDifficultyAction(DIFFICULTY.e)}
             />
@@ -84,23 +71,7 @@ const Header = ({ settings, setDifficultyAction }) => {
               handleClick={() => setDifficultyAction(DIFFICULTY.h)}
             />
           </div>
-          {/* <SubheaderButton
-              title="EASY"
-              difficulty={difficulty}
-              handleClick={() => setDifficultyAction(DIFFICULTY.e)}
-            />
-            <SubheaderButton
-              title="MEDIUM"
-              difficulty={difficulty}
-              handleClick={() => setDifficultyAction(DIFFICULTY.m)}
-            />
-            <SubheaderButton
-              title="HARD"
-              difficulty={difficulty}
-              handleClick={() => setDifficultyAction(DIFFICULTY.h)}
-            />
-          </div> */}
-          <SubheaderButton title="BUY ME COFFEE" />
+          <CoffeeButton />
         </Toolbar>
       </AppBar>
     </div>
