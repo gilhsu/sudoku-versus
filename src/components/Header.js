@@ -1,10 +1,13 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 
 import TitleTypography from "./TitleTypography";
+import DifficultyButton from "./DifficultyButton";
+import { DIFFICULTY, setDifficulty } from "../features/settings/settingsSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,12 +32,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header() {
+const Header = ({ settings, setDifficultyAction }) => {
+  const { difficulty } = settings;
+  console.log("difficulty", difficulty);
   const classes = useStyles();
 
-  const SubheaderButton = ({ title }) => {
+  const SubheaderButton = ({ title, difficulty, handleClick }) => {
+    const buttonColor = title === difficulty ? "primary" : "secondary";
     return (
-      <Button color="secondary" className={classes.subheaderButton}>
+      <Button
+        color={buttonColor}
+        className={classes.subheaderButton}
+        onClick={handleClick}
+      >
         {title}
       </Button>
     );
@@ -58,13 +68,49 @@ export default function Header() {
       <AppBar position="static" color="transparent" elevation={0}>
         <Toolbar className={classes.subheader}>
           <div className={classes.difficultyContainer}>
-            <SubheaderButton title="EASY" />
-            <SubheaderButton title="MEDIUM" />
-            <SubheaderButton title="HARD" />
+            <DifficultyButton
+              title="EASY"
+              difficulty={difficulty}
+              handleClick={() => setDifficultyAction(DIFFICULTY.e)}
+            />
+            <DifficultyButton
+              title="MEDIUM"
+              difficulty={difficulty}
+              handleClick={() => setDifficultyAction(DIFFICULTY.m)}
+            />
+            <DifficultyButton
+              title="HARD"
+              difficulty={difficulty}
+              handleClick={() => setDifficultyAction(DIFFICULTY.h)}
+            />
           </div>
+          {/* <SubheaderButton
+              title="EASY"
+              difficulty={difficulty}
+              handleClick={() => setDifficultyAction(DIFFICULTY.e)}
+            />
+            <SubheaderButton
+              title="MEDIUM"
+              difficulty={difficulty}
+              handleClick={() => setDifficultyAction(DIFFICULTY.m)}
+            />
+            <SubheaderButton
+              title="HARD"
+              difficulty={difficulty}
+              handleClick={() => setDifficultyAction(DIFFICULTY.h)}
+            />
+          </div> */}
           <SubheaderButton title="BUY ME COFFEE" />
         </Toolbar>
       </AppBar>
     </div>
   );
-}
+};
+
+const mapStateToProps = (state) => ({
+  settings: state.settings,
+});
+
+const mapDispatchToProps = { setDifficultyAction: setDifficulty };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
