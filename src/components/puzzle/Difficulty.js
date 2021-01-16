@@ -16,9 +16,9 @@ export const Difficulty = (props) => {
         defaultValue={difficulty}
         onChange={props.onChange}
       >
-        <option value="Easy">Easy</option>
-        <option value="Medium">Medium</option>
-        <option value="Hard">Hard</option>
+        <option value="EASY">EASY</option>
+        <option value="MEDIUM">MEDIUM</option>
+        <option value="HARD">HARD</option>
       </select>
     </div>
   );

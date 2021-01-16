@@ -18,7 +18,6 @@ function App() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <Header />
         <SudokuProvider>
           <Game />
         </SudokuProvider>

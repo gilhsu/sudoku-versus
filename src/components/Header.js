@@ -33,9 +33,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ settings, setDifficultyAction }) => {
-  const { difficulty } = settings;
+const Header = ({ settings, setDifficultyAction, createNewGame }) => {
   const classes = useStyles();
+  const { difficulty } = settings;
+
+  const handleChangeDifficulty = (difficulty) => {
+    console.log("difficulty", difficulty);
+    const event = { target: { value: difficulty } };
+    setDifficulty(difficulty);
+    setDifficultyAction(difficulty);
+    createNewGame(event);
+  };
 
   return (
     <div className={classes.root}>
@@ -58,17 +66,17 @@ const Header = ({ settings, setDifficultyAction }) => {
             <DifficultyButton
               title={DIFFICULTY.e}
               difficulty={difficulty}
-              handleClick={() => setDifficultyAction(DIFFICULTY.e)}
+              handleClick={() => handleChangeDifficulty(DIFFICULTY.e)}
             />
             <DifficultyButton
               title={DIFFICULTY.m}
               difficulty={difficulty}
-              handleClick={() => setDifficultyAction(DIFFICULTY.m)}
+              handleClick={() => handleChangeDifficulty(DIFFICULTY.m)}
             />
             <DifficultyButton
               title={DIFFICULTY.h}
               difficulty={difficulty}
-              handleClick={() => setDifficultyAction(DIFFICULTY.h)}
+              handleClick={() => handleChangeDifficulty(DIFFICULTY.h)}
             />
           </div>
           <CoffeeButton />

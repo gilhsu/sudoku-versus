@@ -4,6 +4,7 @@ import { GameSection } from "./components/puzzle/layout/GameSection";
 import { StatusSection } from "./components/puzzle/layout/StatusSection";
 import { getUniqueSudoku } from "./solver/UniqueSudoku";
 import { useSudokuContext } from "./context/SudokuContext";
+import Header from "./components/Header";
 
 /**
  * Game is the main React component.
@@ -143,6 +144,7 @@ export const Game = () => {
    * 2. Create New Game
    */
   function onChangeDifficulty(e) {
+    console.log("e.target.value", e.target.value);
     setDifficulty(e.target.value);
     _createNewGame(e);
   }
@@ -228,6 +230,7 @@ export const Game = () => {
 
   return (
     <>
+      <Header createNewGame={_createNewGame} />
       <div className={overlay ? "container blur" : "container"}>
         <div className="innercontainer">
           <GameSection onClick={(indexOfArray) => onClickCell(indexOfArray)} />
