@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
-        <p>Testing for Auto Deploy!</p>
+        <p>Testing for Master!</p>
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
