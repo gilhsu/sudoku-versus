@@ -1,11 +1,14 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
+import { ThemeProvider } from "@material-ui/core/styles";
+
+import theme from "./themes/defaultTheme";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <Button variant="contained" color="primary">
-      Hello World
-    </Button>
+    <ThemeProvider theme={theme}>
+      <Header />
+    </ThemeProvider>
   );
 }
 
