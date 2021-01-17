@@ -7,7 +7,6 @@ import "./App.css";
 import { SudokuProvider } from "./context/SudokuContext";
 import { Game } from "./Game";
 import theme from "./themes/defaultTheme";
-import Header from "./components/Header";
 import rootReducer from "./reducers";
 
 const store = configureStore({

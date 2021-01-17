@@ -1,12 +1,18 @@
 import React, { createContext, useContext, useState } from "react";
 import moment from "moment";
 
+export const DIFFICULTY = {
+  e: "EASY",
+  m: "MEDIUM",
+  h: "HARD",
+};
+
 const SudokuContext = createContext([
   "0",
   () => {},
   [],
   () => {},
-  "Easy",
+  DIFFICULTY.e,
   () => {},
   moment(),
   () => {},
@@ -23,7 +29,7 @@ const SudokuContext = createContext([
 export const SudokuProvider = ({ children }) => {
   let [numberSelected, setNumberSelected] = useState("0");
   let [gameArray, setGameArray] = useState([]);
-  let [difficulty, setDifficulty] = useState("Easy");
+  let [difficulty, setDifficulty] = useState(DIFFICULTY.e);
   let [timeGameStarted, setTimeGameStarted] = useState(moment());
   let [fastMode, setFastMode] = useState(false);
   let [cellSelected, setCellSelected] = useState(-1);

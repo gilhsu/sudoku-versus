@@ -49,10 +49,10 @@ export const Game = () => {
   /**
    * Creates a new game and initializes the state variables.
    */
-  function _createNewGame(e) {
+  function _createNewGame(newDifficulty) {
     let [temporaryInitArray, temporarySolvedArray] = getUniqueSudoku(
       difficulty,
-      e
+      newDifficulty
     );
 
     setInitArray(temporaryInitArray);
@@ -143,10 +143,9 @@ export const Game = () => {
    * 1. Update 'Difficulty' level
    * 2. Create New Game
    */
-  function onChangeDifficulty(e) {
-    console.log("e.target.value", e.target.value);
-    setDifficulty(e.target.value);
-    _createNewGame(e);
+  function onChangeDifficulty(newDifficulty) {
+    setDifficulty(newDifficulty);
+    _createNewGame(newDifficulty);
   }
 
   /**
@@ -230,7 +229,7 @@ export const Game = () => {
 
   return (
     <>
-      <Header createNewGame={_createNewGame} />
+      <Header onChangeDifficulty={onChangeDifficulty} difficulty={difficulty} />
       <div className={overlay ? "container blur" : "container"}>
         <div className="innercontainer">
           <GameSection onClick={(indexOfArray) => onClickCell(indexOfArray)} />
