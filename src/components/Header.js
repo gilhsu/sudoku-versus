@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { connect } from "react-redux";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
@@ -8,7 +7,8 @@ import Button from "@material-ui/core/Button";
 import TitleTypography from "./TitleTypography";
 import DifficultyButton from "./DifficultyButton";
 import CoffeeButton from "./CoffeeButton";
-import { DIFFICULTY, setDifficulty } from "../features/settings/settingsSlice";
+
+import { DIFFICULTY } from "../context/SudokuContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,8 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ settings, setDifficultyAction }) => {
-  const { difficulty } = settings;
+const Header = ({ difficulty, onChangeDifficulty }) => {
   const classes = useStyles();
 
   return (
@@ -58,17 +57,17 @@ const Header = ({ settings, setDifficultyAction }) => {
             <DifficultyButton
               title={DIFFICULTY.e}
               difficulty={difficulty}
-              handleClick={() => setDifficultyAction(DIFFICULTY.e)}
+              handleClick={() => onChangeDifficulty(DIFFICULTY.e)}
             />
             <DifficultyButton
               title={DIFFICULTY.m}
               difficulty={difficulty}
-              handleClick={() => setDifficultyAction(DIFFICULTY.m)}
+              handleClick={() => onChangeDifficulty(DIFFICULTY.m)}
             />
             <DifficultyButton
               title={DIFFICULTY.h}
               difficulty={difficulty}
-              handleClick={() => setDifficultyAction(DIFFICULTY.h)}
+              handleClick={() => onChangeDifficulty(DIFFICULTY.h)}
             />
           </div>
           <CoffeeButton />
@@ -78,10 +77,4 @@ const Header = ({ settings, setDifficultyAction }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  settings: state.settings,
-});
-
-const mapDispatchToProps = { setDifficultyAction: setDifficulty };
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;
