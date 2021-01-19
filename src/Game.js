@@ -40,7 +40,7 @@ export const Game = () => {
     initArray,
     setInitArray,
     setWon,
-    setFlash,
+    setColorFlash,
   } = useSudokuContext();
   let [mistakesMode, setMistakesMode] = useState(true);
   let [history, setHistory] = useState([]);
@@ -107,28 +107,28 @@ export const Game = () => {
 
   // clear flash color, clear selected cell, erase cell value
   function clearWrongAnswer() {
-    setFlash(null);
+    setColorFlash(null);
     onClickErase();
     setCellSelected(-1);
   }
 
   async function triggerWrongAnswer(index, value) {
-    setFlash("red");
+    setColorFlash("red");
     _fillCell(index, value);
-    await setTimeout(() => clearWrongAnswer(), 3000);
+    await setTimeout(() => clearWrongAnswer(), 2000);
   }
 
   // clear flash color and refill cell
   function finishCorrectAnswer(index, value) {
-    setFlash(null);
+    setColorFlash(null);
     _fillCell(index, value);
     setCellSelected(-1);
   }
 
   async function triggerCorrectAnswer(index, value) {
-    setFlash("green");
+    setColorFlash("green");
     _fillCell(index, value);
-    await setTimeout(() => finishCorrectAnswer(), 3000);
+    await setTimeout(() => finishCorrectAnswer(), 1000);
   }
 
   /**

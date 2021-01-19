@@ -6,7 +6,7 @@ import { useSudokuContext } from "../../../context/SudokuContext";
  */
 export const GameSection = (props) => {
   const rows = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-  let { gameArray, cellSelected, initArray, flash } = useSudokuContext();
+  let { gameArray, cellSelected, initArray, colorFlash } = useSudokuContext();
 
   /**
    * Cell Highlight Method 1: Highlight all cells
@@ -65,14 +65,14 @@ export const GameSection = (props) => {
   /**
    * Returns the classes for a cell related to the selected cell.
    */
-  function _selectedCell(indexOfArray, value, highlight, flash) {
+  function _selectedCell(indexOfArray, value, highlight, colorFlash) {
     if (value !== "0") {
       // sets style of a cell if the cell was empty in initial puzzle
       if (initArray[indexOfArray] === "0") {
-        if (flash) {
+        if (colorFlash) {
           return (
             <td
-              className={`game__cell game__cell--userfilled game__cell--${flash}selected`}
+              className={`game__cell game__cell--userfilled game__cell--${colorFlash}selected`}
               key={indexOfArray}
               // onClick={() => props.onClick(indexOfArray)}
             >
@@ -138,7 +138,7 @@ export const GameSection = (props) => {
     } else {
       // only allow cell selection once the answer flash goes away
       const handleClick = (indexOfArray) => {
-        if (!flash) {
+        if (!colorFlash) {
           props.onClick(indexOfArray);
         }
       };
@@ -170,7 +170,7 @@ export const GameSection = (props) => {
                       indexOfArray,
                       value,
                       "highlight",
-                      flash
+                      colorFlash
                     );
                   }
 

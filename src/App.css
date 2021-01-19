@@ -133,12 +133,12 @@ body {
 }
 
 .game__cell.game__cell--filled {
-  color: var(--color-grey);
+  color: var(--color-gray);
   cursor: default;
 }
 
 .game__cell.game__cell--userfilled {
-  color: var(--color-grey);
+  color: var(--color-gray);
   font-weight: 900;
 }
 
@@ -172,14 +172,97 @@ body {
   background-color: var(--color-orange-dark);
 }
 
+@keyframes red-flash {
+  0% {
+    background-color: rgb(243, 77, 77);
+    opacity: 1;
+  }
+  10% {
+    background-color: rgb(255, 181, 181);
+  }
+  20% {
+    background-color: rgb(243, 77, 77);
+  }
+  30% {
+    background-color: rgb(255, 181, 181);
+  }
+  40% {
+    background-color: rgb(243, 77, 77);
+  }
+  50% {
+    background-color: rgb(255, 181, 181);
+  }
+  60% {
+    background-color: rgb(243, 77, 77);
+  }
+  72% {
+    background-color: rgb(255, 181, 181);
+  }
+  80% {
+    background-color: rgb(243, 77, 77);
+  }
+  90% {
+    background-color: rgb(255, 181, 181);
+  }
+  100% {
+    background-color: rgb(243, 77, 77);
+  }
+}
+
 .game__cell.game__cell--userfilled.game__cell--redselected {
-  color: var(--color-grey);
-  background-color: red;
+  color: white;
+
+  animation-name: red-flash;
+  animation-duration: 2000ms;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes green-flash {
+  0% {
+    background-color: rgb(70, 153, 74);
+    opacity: 1;
+  }
+  10% {
+    background-color: rgb(184, 224, 186);
+  }
+  20% {
+    background-color: rgb(70, 153, 74);
+  }
+  30% {
+    background-color: rgb(184, 224, 186);
+  }
+  40% {
+    background-color: rgb(70, 153, 74);
+  }
+  50% {
+    background-color: rgb(184, 224, 186);
+  }
+  60% {
+    background-color: rgb(70, 153, 74);
+  }
+  72% {
+    background-color: rgb(184, 224, 186);
+  }
+  80% {
+    background-color: rgb(70, 153, 74);
+  }
+  90% {
+    background-color: rgb(184, 224, 186);
+  }
+  100% {
+    background-color: rgb(70, 153, 74);
+  }
 }
 
 .game__cell.game__cell--userfilled.game__cell--greenselected {
-  color: var(--color-grey);
+  color: white;
   background-color: green;
+
+  animation-name: green-flash;
+  animation-duration: 2000ms;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
 }
 
 .game__cell:nth-child(3n) {
