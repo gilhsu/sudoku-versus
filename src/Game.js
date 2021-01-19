@@ -135,13 +135,13 @@ export const Game = () => {
    * A 'user fill' will be passed on to the
    * _fillCell function above.
    */
-  async function _userFillCell(index, value) {
+  function _userFillCell(index, value) {
     if (mistakesMode) {
       if (value === solvedArray[index]) {
-        await triggerCorrectAnswer(index, value);
+        triggerCorrectAnswer(index, value);
         // _fillCell(index, value);
       } else {
-        await triggerWrongAnswer(index, value);
+        triggerWrongAnswer(index, value);
       }
     } else {
       alert("error! cell not filled correctly! check mistakesMode state");
