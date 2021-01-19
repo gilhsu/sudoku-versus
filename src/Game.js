@@ -40,8 +40,9 @@ export const Game = () => {
     initArray,
     setInitArray,
     setWon,
+    setMistake,
   } = useSudokuContext();
-  let [mistakesMode, setMistakesMode] = useState(false);
+  let [mistakesMode, setMistakesMode] = useState(true);
   let [history, setHistory] = useState([]);
   let [solvedArray, setSolvedArray] = useState([]);
   let [overlay, setOverlay] = useState(false);
@@ -104,19 +105,27 @@ export const Game = () => {
     }
   }
 
+  async function clearMistake() {
+    setMistake(false);
+    setCellSelected(-1);
+    onClickErase();
+  }
+
   /**
    * A 'user fill' will be passed on to the
    * _fillCell function above.
    */
-  function _userFillCell(index, value) {
+  async function _userFillCell(index, value) {
     if (mistakesMode) {
       if (value === solvedArray[index]) {
         _fillCell(index, value);
       } else {
-        // TODO: Flash - Mistakes not allowed in Mistakes Mode
+        setMistake(true);
+        _fillCell(index, value);
+        await setTimeout(() => clearMistake(), 3000);
       }
     } else {
-      _fillCell(index, value);
+      alert("error! cell not filled correctly! check mistakesMode state");
     }
   }
 
@@ -177,8 +186,9 @@ export const Game = () => {
    * On Click Erase,
    * try to delete the cell.
    */
+  // erase cell if the cell is on the board and the cell was initially empty
   function onClickErase() {
-    if (cellSelected !== -1 && gameArray[cellSelected] !== "0") {
+    if (cellSelected !== -1 && gameArray[cellSelected] === "0") {
       _fillCell(cellSelected, "0");
     }
   }

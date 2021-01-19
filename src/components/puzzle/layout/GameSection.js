@@ -12,6 +12,7 @@ export const GameSection = (props) => {
     fastMode,
     cellSelected,
     initArray,
+    mistake,
   } = useSudokuContext();
 
   /**
@@ -60,30 +61,36 @@ export const GameSection = (props) => {
    * the same number as in the current cell.
    */
   function _isCellSameAsSelectedCell(row, column) {
-    if (fastMode) {
-      if (numberSelected === gameArray[row * 9 + column]) {
-        return true;
-      }
+    if (cellSelected === row * 9 + column) {
+      return true;
+    }
+    if (gameArray[cellSelected] === "0") {
       return false;
-    } else {
-      if (cellSelected === row * 9 + column) {
-        return true;
-      }
-      if (gameArray[cellSelected] === "0") {
-        return false;
-      }
-      if (gameArray[cellSelected] === gameArray[row * 9 + column]) {
-        return true;
-      }
     }
   }
 
   /**
    * Returns the classes for a cell related to the selected cell.
    */
-  function _selectedCell(indexOfArray, value, highlight) {
+  function _selectedCell(indexOfArray, value, highlight, mistake) {
+    console.log("indexOfArray", indexOfArray);
+    console.log("value", value);
+    console.log("highlight", highlight);
+    console.log("mistake", mistake);
     if (value !== "0") {
+      // sets style of a cell if the cell was empty in initial puzzle
       if (initArray[indexOfArray] === "0") {
+        if (mistake) {
+          return (
+            <td
+              className={`game__cell game__cell--userfilled game__cell--mistakeselected`}
+              key={indexOfArray}
+              onClick={() => props.onClick(indexOfArray)}
+            >
+              {value}
+            </td>
+          );
+        }
         return (
           <td
             className={`game__cell game__cell--userfilled game__cell--${highlight}selected`}
@@ -94,6 +101,7 @@ export const GameSection = (props) => {
           </td>
         );
       } else {
+        // set style of cell of pre-filled puzzle cell
         return (
           <td
             className={`game__cell game__cell--filled game__cell--${highlight}selected`}
@@ -105,6 +113,8 @@ export const GameSection = (props) => {
         );
       }
     } else {
+      // highlight cell on initial click
+      console.log("initial click!");
       return (
         <td
           className={`game__cell game__cell--${highlight}selected`}
@@ -168,27 +178,21 @@ export const GameSection = (props) => {
                   const value = gameArray[indexOfArray];
 
                   if (cellSelected === indexOfArray) {
-                    return _selectedCell(indexOfArray, value, "highlight");
+                    return _selectedCell(
+                      indexOfArray,
+                      value,
+                      "highlight",
+                      mistake
+                    );
                   }
 
-                  if (fastMode) {
-                    if (
-                      numberSelected !== "0" &&
-                      _isCellSameAsSelectedCell(row, column)
-                    ) {
-                      return _selectedCell(indexOfArray, value, "");
-                    } else {
-                      return _unselectedCell(indexOfArray, value);
-                    }
+                  if (
+                    cellSelected !== -1 &&
+                    _isCellSameAsSelectedCell(row, column)
+                  ) {
+                    return _selectedCell(indexOfArray, value, "");
                   } else {
-                    if (
-                      cellSelected !== -1 &&
-                      _isCellSameAsSelectedCell(row, column)
-                    ) {
-                      return _selectedCell(indexOfArray, value, "");
-                    } else {
-                      return _unselectedCell(indexOfArray, value);
-                    }
+                    return _unselectedCell(indexOfArray, value);
                   }
                 })}
               </tr>
