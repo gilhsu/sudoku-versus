@@ -6,13 +6,7 @@ import { useSudokuContext } from "../../../context/SudokuContext";
  */
 export const GameSection = (props) => {
   const rows = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-  let {
-    numberSelected,
-    gameArray,
-    fastMode,
-    cellSelected,
-    initArray,
-  } = useSudokuContext();
+  let { gameArray, cellSelected, initArray, colorFlash } = useSudokuContext();
 
   /**
    * Cell Highlight Method 1: Highlight all cells
@@ -60,40 +54,43 @@ export const GameSection = (props) => {
    * the same number as in the current cell.
    */
   function _isCellSameAsSelectedCell(row, column) {
-    if (fastMode) {
-      if (numberSelected === gameArray[row * 9 + column]) {
-        return true;
-      }
+    if (cellSelected === row * 9 + column) {
+      return true;
+    }
+    if (gameArray[cellSelected] === "0") {
       return false;
-    } else {
-      if (cellSelected === row * 9 + column) {
-        return true;
-      }
-      if (gameArray[cellSelected] === "0") {
-        return false;
-      }
-      if (gameArray[cellSelected] === gameArray[row * 9 + column]) {
-        return true;
-      }
     }
   }
 
   /**
    * Returns the classes for a cell related to the selected cell.
    */
-  function _selectedCell(indexOfArray, value, highlight) {
+  function _selectedCell(indexOfArray, value, highlight, colorFlash) {
     if (value !== "0") {
+      // sets style of a cell if the cell was empty in initial puzzle
       if (initArray[indexOfArray] === "0") {
+        if (colorFlash) {
+          return (
+            <td
+              className={`game__cell game__cell--userfilled game__cell--${colorFlash}selected`}
+              key={indexOfArray}
+              // onClick={() => props.onClick(indexOfArray)}
+            >
+              {value}
+            </td>
+          );
+        }
         return (
           <td
             className={`game__cell game__cell--userfilled game__cell--${highlight}selected`}
             key={indexOfArray}
-            onClick={() => props.onClick(indexOfArray)}
+            // onClick={() => props.onClick(indexOfArray)}
           >
             {value}
           </td>
         );
       } else {
+        // set style of cell of pre-filled puzzle cell
         return (
           <td
             className={`game__cell game__cell--filled game__cell--${highlight}selected`}
@@ -105,6 +102,7 @@ export const GameSection = (props) => {
         );
       }
     } else {
+      // highlight cell on click
       return (
         <td
           className={`game__cell game__cell--${highlight}selected`}
@@ -122,33 +120,33 @@ export const GameSection = (props) => {
    */
   function _unselectedCell(indexOfArray, value) {
     if (value !== "0") {
+      // cannot click correctly filled cells
       if (initArray[indexOfArray] === "0") {
         return (
-          <td
-            className="game__cell game__cell--userfilled"
-            key={indexOfArray}
-            onClick={() => props.onClick(indexOfArray)}
-          >
+          <td className="game__cell game__cell--userfilled" key={indexOfArray}>
             {value}
           </td>
         );
       } else {
+        // cannot click pre-filled cells
         return (
-          <td
-            className="game__cell game__cell--filled"
-            key={indexOfArray}
-            onClick={() => props.onClick(indexOfArray)}
-          >
+          <td className="game__cell game__cell--filled" key={indexOfArray}>
             {value}
           </td>
         );
       }
     } else {
+      // only allow cell selection once the answer flash goes away
+      const handleClick = (indexOfArray) => {
+        if (!colorFlash) {
+          props.onClick(indexOfArray);
+        }
+      };
       return (
         <td
           className="game__cell"
           key={indexOfArray}
-          onClick={() => props.onClick(indexOfArray)}
+          onClick={() => handleClick(indexOfArray)}
         >
           {value}
         </td>
@@ -168,27 +166,21 @@ export const GameSection = (props) => {
                   const value = gameArray[indexOfArray];
 
                   if (cellSelected === indexOfArray) {
-                    return _selectedCell(indexOfArray, value, "highlight");
+                    return _selectedCell(
+                      indexOfArray,
+                      value,
+                      "highlight",
+                      colorFlash
+                    );
                   }
 
-                  if (fastMode) {
-                    if (
-                      numberSelected !== "0" &&
-                      _isCellSameAsSelectedCell(row, column)
-                    ) {
-                      return _selectedCell(indexOfArray, value, "");
-                    } else {
-                      return _unselectedCell(indexOfArray, value);
-                    }
+                  if (
+                    cellSelected !== -1 &&
+                    _isCellSameAsSelectedCell(row, column)
+                  ) {
+                    return _selectedCell(indexOfArray, value, "");
                   } else {
-                    if (
-                      cellSelected !== -1 &&
-                      _isCellSameAsSelectedCell(row, column)
-                    ) {
-                      return _selectedCell(indexOfArray, value, "");
-                    } else {
-                      return _unselectedCell(indexOfArray, value);
-                    }
+                    return _unselectedCell(indexOfArray, value);
                   }
                 })}
               </tr>

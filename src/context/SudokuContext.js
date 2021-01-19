@@ -24,6 +24,7 @@ const SudokuContext = createContext([
   () => {},
   false,
   () => {},
+  () => {},
 ]);
 
 export const SudokuProvider = ({ children }) => {
@@ -35,6 +36,7 @@ export const SudokuProvider = ({ children }) => {
   let [cellSelected, setCellSelected] = useState(-1);
   let [initArray, setInitArray] = useState([]);
   let [won, setWon] = useState(false);
+  let [colorFlash, setColorFlash] = useState(null);
 
   return (
     <SudokuContext.Provider
@@ -55,6 +57,8 @@ export const SudokuProvider = ({ children }) => {
         setInitArray,
         won,
         setWon,
+        colorFlash,
+        setColorFlash,
       }}
     >
       {children}

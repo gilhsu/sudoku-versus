@@ -14,6 +14,8 @@
   --color-grey-lighter: hsl(213, 30%, 79%);
   --color-orange: hsl(34, 26%, 89%);
   --color-orange-dark: hsl(34, 76%, 89%);
+  --color-purple: #3f51b5;
+  --color-background-purple: #bec7f5;
 }
 
 /**
@@ -112,7 +114,7 @@ body {
 }
 
 .game__board {
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 26px;
   margin: 30px 0;
   border: 2px solid var(--color-grey);
@@ -131,11 +133,13 @@ body {
 }
 
 .game__cell.game__cell--filled {
-  color: var(--color-grey);
+  color: var(--color-gray);
+  cursor: default;
 }
 
 .game__cell.game__cell--userfilled {
-  color: var(--color-grey-light);
+  color: var(--color-gray);
+  font-weight: 900;
 }
 
 .game__cell.game__cell--selected {
@@ -154,8 +158,8 @@ body {
 }
 
 .game__cell.game__cell--highlightselected {
-  color: var(--color-orange-dark);
-  background-color: var(--color-orange-dark);
+  color: var(--color-background-purple);
+  background-color: var(--color-background-purple);
 }
 
 .game__cell.game__cell--filled.game__cell--highlightselected {
@@ -166,6 +170,99 @@ body {
 .game__cell.game__cell--userfilled.game__cell--highlightselected {
   color: var(--color-grey-light);
   background-color: var(--color-orange-dark);
+}
+
+@keyframes red-flash {
+  0% {
+    background-color: rgb(243, 77, 77);
+    opacity: 1;
+  }
+  10% {
+    background-color: rgb(255, 181, 181);
+  }
+  20% {
+    background-color: rgb(243, 77, 77);
+  }
+  30% {
+    background-color: rgb(255, 181, 181);
+  }
+  40% {
+    background-color: rgb(243, 77, 77);
+  }
+  50% {
+    background-color: rgb(255, 181, 181);
+  }
+  60% {
+    background-color: rgb(243, 77, 77);
+  }
+  72% {
+    background-color: rgb(255, 181, 181);
+  }
+  80% {
+    background-color: rgb(243, 77, 77);
+  }
+  90% {
+    background-color: rgb(255, 181, 181);
+  }
+  100% {
+    background-color: rgb(243, 77, 77);
+  }
+}
+
+.game__cell.game__cell--userfilled.game__cell--redselected {
+  color: white;
+
+  animation-name: red-flash;
+  animation-duration: 2000ms;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes green-flash {
+  0% {
+    background-color: rgb(70, 153, 74);
+    opacity: 1;
+  }
+  10% {
+    background-color: rgb(184, 224, 186);
+  }
+  20% {
+    background-color: rgb(70, 153, 74);
+  }
+  30% {
+    background-color: rgb(184, 224, 186);
+  }
+  40% {
+    background-color: rgb(70, 153, 74);
+  }
+  50% {
+    background-color: rgb(184, 224, 186);
+  }
+  60% {
+    background-color: rgb(70, 153, 74);
+  }
+  72% {
+    background-color: rgb(184, 224, 186);
+  }
+  80% {
+    background-color: rgb(70, 153, 74);
+  }
+  90% {
+    background-color: rgb(184, 224, 186);
+  }
+  100% {
+    background-color: rgb(70, 153, 74);
+  }
+}
+
+.game__cell.game__cell--userfilled.game__cell--greenselected {
+  color: white;
+  background-color: green;
+
+  animation-name: green-flash;
+  animation-duration: 2000ms;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
 }
 
 .game__cell:nth-child(3n) {
@@ -236,7 +333,7 @@ body {
 
 .status__number {
   text-align: center;
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 26px;
   padding: 12px 0;
   cursor: pointer;
