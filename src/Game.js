@@ -40,7 +40,7 @@ export const Game = () => {
     initArray,
     setInitArray,
     setWon,
-    setMistake,
+    setFlash,
   } = useSudokuContext();
   let [mistakesMode, setMistakesMode] = useState(true);
   let [history, setHistory] = useState([]);
@@ -105,10 +105,30 @@ export const Game = () => {
     }
   }
 
-  async function clearMistake() {
-    setMistake(false);
-    setCellSelected(-1);
+  // clear flash color, clear selected cell, erase cell value
+  function clearWrongAnswer() {
+    setFlash(null);
     onClickErase();
+    setCellSelected(-1);
+  }
+
+  async function triggerWrongAnswer(index, value) {
+    setFlash("red");
+    _fillCell(index, value);
+    await setTimeout(() => clearWrongAnswer(), 3000);
+  }
+
+  // clear flash color and refill cell
+  function finishCorrectAnswer(index, value) {
+    setFlash(null);
+    _fillCell(index, value);
+    setCellSelected(-1);
+  }
+
+  async function triggerCorrectAnswer(index, value) {
+    setFlash("green");
+    _fillCell(index, value);
+    await setTimeout(() => finishCorrectAnswer(), 3000);
   }
 
   /**
@@ -118,11 +138,10 @@ export const Game = () => {
   async function _userFillCell(index, value) {
     if (mistakesMode) {
       if (value === solvedArray[index]) {
-        _fillCell(index, value);
+        await triggerCorrectAnswer(index, value);
+        // _fillCell(index, value);
       } else {
-        setMistake(true);
-        _fillCell(index, value);
-        await setTimeout(() => clearMistake(), 3000);
+        await triggerWrongAnswer(index, value);
       }
     } else {
       alert("error! cell not filled correctly! check mistakesMode state");

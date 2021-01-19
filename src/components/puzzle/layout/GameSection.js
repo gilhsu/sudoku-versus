@@ -6,14 +6,7 @@ import { useSudokuContext } from "../../../context/SudokuContext";
  */
 export const GameSection = (props) => {
   const rows = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-  let {
-    numberSelected,
-    gameArray,
-    fastMode,
-    cellSelected,
-    initArray,
-    mistake,
-  } = useSudokuContext();
+  let { gameArray, cellSelected, initArray, flash } = useSudokuContext();
 
   /**
    * Cell Highlight Method 1: Highlight all cells
@@ -72,20 +65,16 @@ export const GameSection = (props) => {
   /**
    * Returns the classes for a cell related to the selected cell.
    */
-  function _selectedCell(indexOfArray, value, highlight, mistake) {
-    console.log("indexOfArray", indexOfArray);
-    console.log("value", value);
-    console.log("highlight", highlight);
-    console.log("mistake", mistake);
+  function _selectedCell(indexOfArray, value, highlight, flash) {
     if (value !== "0") {
       // sets style of a cell if the cell was empty in initial puzzle
       if (initArray[indexOfArray] === "0") {
-        if (mistake) {
+        if (flash) {
           return (
             <td
-              className={`game__cell game__cell--userfilled game__cell--mistakeselected`}
+              className={`game__cell game__cell--userfilled game__cell--${flash}selected`}
               key={indexOfArray}
-              onClick={() => props.onClick(indexOfArray)}
+              // onClick={() => props.onClick(indexOfArray)}
             >
               {value}
             </td>
@@ -95,7 +84,7 @@ export const GameSection = (props) => {
           <td
             className={`game__cell game__cell--userfilled game__cell--${highlight}selected`}
             key={indexOfArray}
-            onClick={() => props.onClick(indexOfArray)}
+            // onClick={() => props.onClick(indexOfArray)}
           >
             {value}
           </td>
@@ -113,8 +102,7 @@ export const GameSection = (props) => {
         );
       }
     } else {
-      // highlight cell on initial click
-      console.log("initial click!");
+      // highlight cell on click
       return (
         <td
           className={`game__cell game__cell--${highlight}selected`}
@@ -132,33 +120,33 @@ export const GameSection = (props) => {
    */
   function _unselectedCell(indexOfArray, value) {
     if (value !== "0") {
+      // cannot click correctly filled cells
       if (initArray[indexOfArray] === "0") {
         return (
-          <td
-            className="game__cell game__cell--userfilled"
-            key={indexOfArray}
-            onClick={() => props.onClick(indexOfArray)}
-          >
+          <td className="game__cell game__cell--userfilled" key={indexOfArray}>
             {value}
           </td>
         );
       } else {
+        // cannot click pre-filled cells
         return (
-          <td
-            className="game__cell game__cell--filled"
-            key={indexOfArray}
-            onClick={() => props.onClick(indexOfArray)}
-          >
+          <td className="game__cell game__cell--filled" key={indexOfArray}>
             {value}
           </td>
         );
       }
     } else {
+      // only allow cell selection once the answer flash goes away
+      const handleClick = (indexOfArray) => {
+        if (!flash) {
+          props.onClick(indexOfArray);
+        }
+      };
       return (
         <td
           className="game__cell"
           key={indexOfArray}
-          onClick={() => props.onClick(indexOfArray)}
+          onClick={() => handleClick(indexOfArray)}
         >
           {value}
         </td>
@@ -182,7 +170,7 @@ export const GameSection = (props) => {
                       indexOfArray,
                       value,
                       "highlight",
-                      mistake
+                      flash
                     );
                   }
 
