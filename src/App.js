@@ -5,12 +5,15 @@ import "./App.css";
 import { SudokuProvider } from "./context/SudokuContext";
 import { Game } from "./Game";
 import theme from "./themes/defaultTheme";
+import { SettingsProvider } from "./context/SettingsContext";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <SudokuProvider>
-        <Game />
+        <SettingsProvider>
+          <Game />
+        </SettingsProvider>
       </SudokuProvider>
     </ThemeProvider>
   );
