@@ -5,6 +5,7 @@ import { StatusSection } from "./components/puzzle/layout/StatusSection";
 import { getUniqueSudoku } from "./solver/UniqueSudoku";
 import { useSudokuContext } from "./context/SudokuContext";
 import Header from "./components/Header";
+import { useSettingsContext } from "./context/SettingsContext";
 
 /**
  * Game is the main React component.
@@ -30,8 +31,7 @@ export const Game = () => {
     setNumberSelected,
     gameArray,
     setGameArray,
-    difficulty,
-    setDifficulty,
+
     setTimeGameStarted,
     fastMode,
     setFastMode,
@@ -42,6 +42,7 @@ export const Game = () => {
     setWon,
     setColorFlash,
   } = useSudokuContext();
+  const { difficulty, setDifficulty } = useSettingsContext();
   let [mistakesMode, setMistakesMode] = useState(true);
   let [history, setHistory] = useState([]);
   let [solvedArray, setSolvedArray] = useState([]);

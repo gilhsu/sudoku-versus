@@ -1,38 +1,63 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSudokuContext } from "../../context/SudokuContext";
+import { useSettingsContext } from "../../context/SettingsContext";
 import moment from "moment";
 
 /**
  * React component for the Timer in Status Section.
- * Uses the 'useEffect' hook to update the timer every minute.
+ * Uses the 'useEffect' hook to update the timer every second.
  */
 export const Timer = (props) => {
-  let [currentTime, setCurrentTime] = useState(moment());
-  let { timeGameStarted, won } = useSudokuContext();
+  const { won } = useSudokuContext();
+  const {
+    timeTurnStarted,
+    setTimeTurnStarted,
+    currentPlayer,
+    nextPlayer,
+    currentTime,
+    setCurrentTime,
+    timeSetting,
+  } = useSettingsContext();
 
   useEffect(() => {
+    function tick() {
+      setCurrentTime(moment());
+    }
     if (!won) setTimeout(() => tick(), 1000);
-  });
+  }, [currentTime, setCurrentTime, won]);
 
-  function tick() {
-    setCurrentTime(moment());
+  const secondsTotal = currentTime.diff(timeTurnStarted, "seconds");
+  const timeRemaining = timeSetting - secondsTotal;
+
+  useEffect(() => {
+    const resetTimer = () => {
+      setTimeTurnStarted(moment());
+    };
+
+    const nextTurnNewPlayer = () => {
+      nextPlayer();
+      resetTimer();
+    };
+
+    if (timeRemaining < 0) {
+      nextTurnNewPlayer();
+    }
+  }, [setTimeTurnStarted, nextPlayer, timeRemaining]);
+
+  let style;
+  if (currentPlayer.id === 0) {
+    style = { backgroundColor: "#afc7de" };
+  } else if (currentPlayer.id === 1) {
+    style = { backgroundColor: "#d9a0c7" };
+  } else {
+    style = { backgroundColor: "#a4e0b4" };
   }
-
-  function getTimer() {
-    let secondsTotal = currentTime.diff(timeGameStarted, "seconds");
-    if (secondsTotal <= 0) return "00:00";
-    let duration = moment.duration(secondsTotal, "seconds");
-    let hours = duration.hours();
-    let minutes = duration.minutes();
-    let seconds = duration.seconds();
-    let stringTimer = "";
-
-    stringTimer += hours ? "" + hours + ":" : "";
-    stringTimer += minutes ? (minutes < 10 ? "0" : "") + minutes + ":" : "00:";
-    stringTimer += seconds < 10 ? "0" + seconds : seconds;
-
-    return stringTimer;
-  }
-
-  return <div className="status__time">{getTimer()}</div>;
+  return (
+    <>
+      <div style={style}>Current Player: {currentPlayer.name}</div>
+      <div className="status__time" onClick={() => {}}>
+        {timeRemaining}
+      </div>
+    </>
+  );
 };
