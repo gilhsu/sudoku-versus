@@ -62,8 +62,8 @@ const PlayersTable = ({ players }) => {
   const classes = useStyles();
   return (
     <Grid className={classes.root} container direction="column" spacing={2}>
-      {players.map((player) => (
-        <PlayerRow player={player} />
+      {players.map((player, i) => (
+        <PlayerRow key={i} player={player} />
       ))}
     </Grid>
   );

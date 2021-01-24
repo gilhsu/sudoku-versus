@@ -6,7 +6,12 @@ import StatusSection from "./components/puzzle/layout/StatusSection";
 import { getUniqueSudoku } from "./solver/UniqueSudoku";
 import Header from "./components/Header";
 
-import { setDifficulty } from "./features/settingsSlice";
+import {
+  setDifficulty,
+  addPoint,
+  nextPlayer,
+  setTimeTurnStarted,
+} from "./features/settingsSlice";
 import {
   setNumberSelected,
   setGameArray,
@@ -35,6 +40,9 @@ const Game = ({
   setWon,
   setColorFlash,
   setTimeGameStarted,
+  addPoint,
+  nextPlayer,
+  setTimeTurnStarted,
 }) => {
   /**
    * All the variables for holding state:
@@ -118,6 +126,8 @@ const Game = ({
     setColorFlash(null);
     onClickErase();
     setCellSelected(-1);
+    nextPlayer();
+    setTimeTurnStarted();
   }
 
   async function triggerWrongAnswer(index, value) {
@@ -134,6 +144,8 @@ const Game = ({
   }
 
   async function triggerCorrectAnswer(index, value) {
+    addPoint();
+    setTimeTurnStarted();
     setColorFlash("green");
     _fillCell(index, value);
     await setTimeout(() => finishCorrectAnswer(), 1000);
@@ -302,6 +314,9 @@ const mapDispatchToProps = {
   setInitArray,
   setWon,
   setColorFlash,
+  addPoint,
+  nextPlayer,
+  setTimeTurnStarted,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

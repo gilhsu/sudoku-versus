@@ -12,24 +12,24 @@ export const initialState = {
   players: [
     {
       id: 0,
-      name: "Player Awesome",
+      name: "Michael Scott",
       score: 0,
       current: true,
     },
     {
       id: 1,
-      name: "Player Best",
+      name: "Jim Halpert",
       score: 0,
       current: false,
     },
     {
       id: 2,
-      name: "Player Cheese",
+      name: "Dwight Shrute",
       score: 0,
       current: false,
     },
   ],
-  timerSetting: 30,
+  timerSetting: 20,
   currentTime: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
   timeTurnStarted: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
 };
@@ -68,6 +68,14 @@ const settingsSlice = createSlice({
       state.timeTurnStarted = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss");
       return state;
     },
+    addPoint: (state) => {
+      state.players.find((player) => player.current === true).score += 1;
+      return state;
+    },
+    minusPoint: (state) => {
+      state.players.find((player) => player.current === true).score -= 1;
+      return state;
+    },
   },
 });
 
@@ -76,6 +84,8 @@ export const {
   nextPlayer,
   setCurrentTime,
   setTimeTurnStarted,
+  addPoint,
+  minusPoint,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;
