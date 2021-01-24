@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import moment from "moment";
 import { GameSection } from "./components/puzzle/layout/GameSection";
 import { StatusSection } from "./components/puzzle/layout/StatusSection";
 import { getUniqueSudoku } from "./solver/UniqueSudoku";
 import { useSudokuContext } from "./context/SudokuContext";
 import Header from "./components/Header";
-import { useSettingsContext } from "./context/SettingsContext";
+// import { useSettingsContext } from "./context/SettingsContext";
+
+import { setDifficulty } from "./features/settingsSlice";
 
 /**
  * Game is the main React component.
  */
-export const Game = () => {
+const Game = ({ difficulty, setDifficulty }) => {
   /**
    * All the variables for holding state:
    * gameArray: Holds the current state of the game.
@@ -42,7 +45,6 @@ export const Game = () => {
     setWon,
     setColorFlash,
   } = useSudokuContext();
-  const { difficulty, setDifficulty } = useSettingsContext();
   let [mistakesMode, setMistakesMode] = useState(true);
   let [history, setHistory] = useState([]);
   let [solvedArray, setSolvedArray] = useState([]);
@@ -288,3 +290,11 @@ export const Game = () => {
     </>
   );
 };
+
+const mapStateToProps = (state) => ({
+  difficulty: state.settings.difficulty,
+});
+
+const mapDispatchToProps = { setDifficulty };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

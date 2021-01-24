@@ -1,40 +1,50 @@
 import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { differenceInSeconds } from "date-fns";
+
+import {
+  nextPlayer,
+  setCurrentTime,
+  setTimeTurnStarted,
+} from "../../features/settingsSlice";
+
 import { useSudokuContext } from "../../context/SudokuContext";
-import { useSettingsContext } from "../../context/SettingsContext";
-import moment from "moment";
 
 /**
  * React component for the Timer in Status Section.
  * Uses the 'useEffect' hook to update the timer every second.
  */
-export const Timer = (props) => {
+const Timer = ({
+  players,
+  nextPlayer,
+  timerSetting,
+  timeTurnStarted,
+  currentTime,
+  setCurrentTime,
+  setTimeTurnStarted,
+}) => {
   const { won } = useSudokuContext();
-  const {
-    timeTurnStarted,
-    setTimeTurnStarted,
-    currentPlayer,
-    nextPlayer,
-    currentTime,
-    setCurrentTime,
-    timeSetting,
-  } = useSettingsContext();
 
   useEffect(() => {
     function tick() {
-      setCurrentTime(moment());
+      setCurrentTime();
     }
     if (!won) setTimeout(() => tick(), 1000);
   }, [currentTime, setCurrentTime, won]);
 
-  const secondsTotal = currentTime.diff(timeTurnStarted, "seconds");
-  const timeRemaining = timeSetting - secondsTotal;
+  const secondsTotal = differenceInSeconds(
+    new Date(currentTime),
+    new Date(timeTurnStarted)
+  );
+  const timeRemaining = timerSetting - secondsTotal;
 
   useEffect(() => {
     const resetTimer = () => {
-      setTimeTurnStarted(moment());
+      setTimeTurnStarted();
     };
 
     const nextTurnNewPlayer = () => {
+      // nextPlayer();
       nextPlayer();
       resetTimer();
     };
@@ -44,6 +54,7 @@ export const Timer = (props) => {
     }
   }, [setTimeTurnStarted, nextPlayer, timeRemaining]);
 
+  const currentPlayer = players.find((player) => player.current === true);
   let style;
   if (currentPlayer.id === 0) {
     style = { backgroundColor: "#afc7de" };
@@ -61,3 +72,18 @@ export const Timer = (props) => {
     </>
   );
 };
+
+const mapStateToProps = (state) => ({
+  players: state.settings.players,
+  timerSetting: state.settings.timerSetting,
+  currentTime: state.settings.currentTime,
+  timeTurnStarted: state.settings.timeTurnStarted,
+});
+
+const mapDispatchToProps = {
+  nextPlayer,
+  setCurrentTime,
+  setTimeTurnStarted,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Timer);
