@@ -8,7 +8,7 @@ import TitleTypography from "./TitleTypography";
 import DifficultyButton from "./DifficultyButton";
 import CoffeeButton from "./CoffeeButton";
 
-import { DIFFICULTY } from "../context/SettingsContext";
+import { DIFFICULTY } from "../features/settingsSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {

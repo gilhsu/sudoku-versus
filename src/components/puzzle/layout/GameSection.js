@@ -1,12 +1,12 @@
 import React from "react";
-import { useSudokuContext } from "../../../context/SudokuContext";
+import { connect } from "react-redux";
 
 /**
  * React component for the Game Section
  */
-export const GameSection = (props) => {
+const GameSection = (props) => {
+  const { gameArray, cellSelected, initArray, colorFlash } = props;
   const rows = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-  let { gameArray, cellSelected, initArray, colorFlash } = useSudokuContext();
 
   /**
    * Cell Highlight Method 1: Highlight all cells
@@ -191,3 +191,12 @@ export const GameSection = (props) => {
     </section>
   );
 };
+
+const mapStateToProps = (state) => ({
+  initArray: state.game.initArray,
+  gameArray: state.game.gameArray,
+  cellSelected: state.game.cellSelected,
+  colorFlash: state.game.colorFlash,
+});
+
+export default connect(mapStateToProps, null)(GameSection);

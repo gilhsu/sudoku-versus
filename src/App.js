@@ -1,20 +1,30 @@
 import React from "react";
 import { ThemeProvider } from "@material-ui/core/styles";
+import { Provider } from "react-redux";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import "./App.css";
-import { SudokuProvider } from "./context/SudokuContext";
-import { Game } from "./Game";
+import Game from "./Game";
 import theme from "./themes/defaultTheme";
-import { SettingsProvider } from "./context/SettingsContext";
+
+import settingsReducer from "./features/settingsSlice";
+import gameReducer from "./features/gameSlice";
+
+const rootReducer = combineReducers({
+  settings: settingsReducer,
+  game: gameReducer,
+});
+
+const store = configureStore({
+  reducer: rootReducer,
+});
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <SudokuProvider>
-        <SettingsProvider>
-          <Game />
-        </SettingsProvider>
-      </SudokuProvider>
+      <Provider store={store}>
+        <Game />
+      </Provider>
     </ThemeProvider>
   );
 }
