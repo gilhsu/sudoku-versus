@@ -41,7 +41,6 @@ const Timer = ({
     };
 
     const nextTurnNewPlayer = () => {
-      // nextPlayer();
       nextPlayer();
       resetTimer();
     };

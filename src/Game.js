@@ -34,7 +34,6 @@ const Game = ({
   setColorFlash,
   setTimeGameStarted,
 }) => {
-  // console.log("gameArray", gameArray);
   /**
    * All the variables for holding state:
    * gameArray: Holds the current state of the game.
@@ -62,7 +61,6 @@ const Game = ({
       difficulty,
       newDifficulty
     );
-    // console.log("temporary", temporaryInitArray);
 
     setInitArray(temporaryInitArray);
     setGameArray(temporaryInitArray);
