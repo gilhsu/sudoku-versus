@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import Grid from "@material-ui/core/Grid";
 import GameSection from "./components/puzzle/layout/GameSection";
 import StatusSection from "./components/puzzle/layout/StatusSection";
 import { getUniqueSudoku } from "./solver/UniqueSudoku";
 import Header from "./components/Header";
 
-import { setDifficulty } from "./features/settingsSlice";
+import {
+  setDifficulty,
+  addPoint,
+  nextPlayer,
+  setTimeTurnStarted,
+} from "./features/settingsSlice";
 import {
   setNumberSelected,
   setGameArray,
@@ -15,6 +21,7 @@ import {
   setWon,
   setColorFlash,
 } from "./features/gameSlice";
+import PlayersTable from "./components/PlayersTable";
 
 /**
  * Game is the main React component.
@@ -33,6 +40,9 @@ const Game = ({
   setWon,
   setColorFlash,
   setTimeGameStarted,
+  addPoint,
+  nextPlayer,
+  setTimeTurnStarted,
 }) => {
   /**
    * All the variables for holding state:
@@ -116,6 +126,8 @@ const Game = ({
     setColorFlash(null);
     onClickErase();
     setCellSelected(-1);
+    nextPlayer();
+    setTimeTurnStarted();
   }
 
   async function triggerWrongAnswer(index, value) {
@@ -132,6 +144,8 @@ const Game = ({
   }
 
   async function triggerCorrectAnswer(index, value) {
+    addPoint();
+    setTimeTurnStarted();
     setColorFlash("green");
     _fillCell(index, value);
     await setTimeout(() => finishCorrectAnswer(), 1000);
@@ -254,8 +268,8 @@ const Game = ({
       <Header onChangeDifficulty={onChangeDifficulty} difficulty={difficulty} />
       <div className={overlay ? "container blur" : "container"}>
         <div className="innercontainer">
+          <PlayersTable />
           <GameSection onClick={(indexOfArray) => onClickCell(indexOfArray)} />
-
           <StatusSection
             onClickNewGame={onClickNewGame}
             onClickNumber={(number) => onClickNumber(number)}
@@ -300,6 +314,9 @@ const mapDispatchToProps = {
   setInitArray,
   setWon,
   setColorFlash,
+  addPoint,
+  nextPlayer,
+  setTimeTurnStarted,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
