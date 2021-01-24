@@ -29,7 +29,7 @@ export const initialState = {
       current: false,
     },
   ],
-  timerSetting: 5,
+  timerSetting: 30,
   currentTime: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
   timeTurnStarted: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
 };
