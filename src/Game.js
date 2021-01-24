@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import Grid from "@material-ui/core/Grid";
 import GameSection from "./components/puzzle/layout/GameSection";
 import StatusSection from "./components/puzzle/layout/StatusSection";
 import { getUniqueSudoku } from "./solver/UniqueSudoku";
