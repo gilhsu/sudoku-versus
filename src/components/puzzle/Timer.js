@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { differenceInSeconds } from "date-fns";
 
 import {
-  minusPoint,
   nextPlayer,
   setCurrentTime,
   setTimeTurnStarted,
@@ -22,7 +21,6 @@ const Timer = ({
   setCurrentTime,
   setTimeTurnStarted,
   won,
-  minusPoint,
 }) => {
   useEffect(() => {
     function tick() {
@@ -38,19 +36,32 @@ const Timer = ({
   const timeRemaining = timerSetting - secondsTotal;
 
   useEffect(() => {
-    const endTurnNoAnswer = () => {
-      minusPoint();
-      nextPlayer();
+    const resetTimer = () => {
       setTimeTurnStarted();
     };
 
-    if (timeRemaining < 0) {
-      endTurnNoAnswer();
-    }
-  }, [setTimeTurnStarted, nextPlayer, timeRemaining, minusPoint]);
+    const nextTurnNewPlayer = () => {
+      nextPlayer();
+      resetTimer();
+    };
 
+    if (timeRemaining < 0) {
+      nextTurnNewPlayer();
+    }
+  }, [setTimeTurnStarted, nextPlayer, timeRemaining]);
+
+  const currentPlayer = players.find((player) => player.current === true);
+  let style;
+  if (currentPlayer.id === 0) {
+    style = { backgroundColor: "#afc7de" };
+  } else if (currentPlayer.id === 1) {
+    style = { backgroundColor: "#d9a0c7" };
+  } else {
+    style = { backgroundColor: "#a4e0b4" };
+  }
   return (
     <>
+      <div style={style}>Current Player: {currentPlayer.name}</div>
       <div className="status__time" onClick={() => {}}>
         {timeRemaining}
       </div>
@@ -70,7 +81,6 @@ const mapDispatchToProps = {
   nextPlayer,
   setCurrentTime,
   setTimeTurnStarted,
-  minusPoint,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timer);

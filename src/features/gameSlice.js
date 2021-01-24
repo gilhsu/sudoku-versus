@@ -36,6 +36,7 @@ const gameSlice = createSlice({
       return state;
     },
     setWon: (state, action) => {
+      console.log("setWon");
       state.won = action.payload;
       return state;
     },
