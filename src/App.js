@@ -4,14 +4,15 @@ import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import "./App.css";
-import { SudokuProvider } from "./context/SudokuContext";
 import Game from "./Game";
 import theme from "./themes/defaultTheme";
 
 import settingsReducer from "./features/settingsSlice";
+import gameReducer from "./features/gameSlice";
 
 const rootReducer = combineReducers({
   settings: settingsReducer,
+  game: gameReducer,
 });
 
 const store = configureStore({
@@ -22,9 +23,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <SudokuProvider>
-          <Game />
-        </SudokuProvider>
+        <Game />
       </Provider>
     </ThemeProvider>
   );

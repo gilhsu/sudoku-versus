@@ -1,11 +1,11 @@
 import React from "react";
 import Timer from "../Timer";
-import { Numbers } from "../Numbers";
+import Numbers from "../Numbers";
 
 /**
  * React component for the Status Section.
  */
-export const StatusSection = (props) => {
+const StatusSection = (props) => {
   return (
     <section className="status">
       <h2 onClick={props.onClickNewGame}>New Game</h2>
@@ -16,8 +16,9 @@ export const StatusSection = (props) => {
         <Action action="erase" onClickAction={props.onClickErase} />
         <Action action="hint" onClickAction={props.onClickHint} />
         <Mode mode="mistakes" onClickMode={props.onClickMistakesMode} />
-        <Mode mode="fast" onClickMode={props.onClickFastMode} />
       </div> */}
     </section>
   );
 };
+
+export default StatusSection;

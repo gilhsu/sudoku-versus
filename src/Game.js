@@ -1,19 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import moment from "moment";
-import { GameSection } from "./components/puzzle/layout/GameSection";
-import { StatusSection } from "./components/puzzle/layout/StatusSection";
+import GameSection from "./components/puzzle/layout/GameSection";
+import StatusSection from "./components/puzzle/layout/StatusSection";
 import { getUniqueSudoku } from "./solver/UniqueSudoku";
-import { useSudokuContext } from "./context/SudokuContext";
 import Header from "./components/Header";
-// import { useSettingsContext } from "./context/SettingsContext";
 
 import { setDifficulty } from "./features/settingsSlice";
+import {
+  setNumberSelected,
+  setGameArray,
+  setTimeGameStarted,
+  setCellSelected,
+  setInitArray,
+  setWon,
+  setColorFlash,
+} from "./features/gameSlice";
 
 /**
  * Game is the main React component.
  */
-const Game = ({ difficulty, setDifficulty }) => {
+const Game = ({
+  difficulty,
+  setDifficulty,
+  numberSelected,
+  setNumberSelected,
+  gameArray,
+  setGameArray,
+  initArray,
+  setInitArray,
+  cellSelected,
+  setCellSelected,
+  setWon,
+  setColorFlash,
+  setTimeGameStarted,
+}) => {
+  // console.log("gameArray", gameArray);
   /**
    * All the variables for holding state:
    * gameArray: Holds the current state of the game.
@@ -23,28 +44,11 @@ const Game = ({ difficulty, setDifficulty }) => {
    * numberSelected: The Number selected in the Status section.
    * timeGameStarted: Time the current game was started.
    * mistakesMode: Is Mistakes allowed or not?
-   * fastMode: Is Fast Mode enabled?
    * cellSelected: If a game cell is selected by the user, holds the index.
    * history: history of the current game, for 'Undo' purposes.
    * overlay: Is the 'Game Solved' overlay enabled?
    * won: Is the game 'won'?
    */
-  let {
-    numberSelected,
-    setNumberSelected,
-    gameArray,
-    setGameArray,
-
-    setTimeGameStarted,
-    fastMode,
-    setFastMode,
-    cellSelected,
-    setCellSelected,
-    initArray,
-    setInitArray,
-    setWon,
-    setColorFlash,
-  } = useSudokuContext();
   let [mistakesMode, setMistakesMode] = useState(true);
   let [history, setHistory] = useState([]);
   let [solvedArray, setSolvedArray] = useState([]);
@@ -58,12 +62,13 @@ const Game = ({ difficulty, setDifficulty }) => {
       difficulty,
       newDifficulty
     );
+    // console.log("temporary", temporaryInitArray);
 
     setInitArray(temporaryInitArray);
     setGameArray(temporaryInitArray);
     setSolvedArray(temporarySolvedArray);
     setNumberSelected("0");
-    setTimeGameStarted(moment());
+    setTimeGameStarted();
     setCellSelected(-1);
     setHistory([]);
     setWon(false);
@@ -163,7 +168,7 @@ const Game = ({ difficulty, setDifficulty }) => {
    * On Click of a Game cell.
    */
   function onClickCell(indexOfArray) {
-    if (fastMode && numberSelected !== "0") {
+    if (numberSelected !== "0") {
       _userFillCell(indexOfArray, numberSelected);
     }
     setCellSelected(indexOfArray);
@@ -184,9 +189,7 @@ const Game = ({ difficulty, setDifficulty }) => {
    * either fill cell or set the number.
    */
   function onClickNumber(number) {
-    if (fastMode) {
-      setNumberSelected(number);
-    } else if (cellSelected !== -1) {
+    if (cellSelected !== -1) {
       _userFillCell(cellSelected, number);
     }
   }
@@ -233,17 +236,6 @@ const Game = ({ difficulty, setDifficulty }) => {
   }
 
   /**
-   * Toggle Fast Mode
-   */
-  function onClickFastMode() {
-    if (fastMode) {
-      setNumberSelected("0");
-    }
-    setCellSelected(-1);
-    setFastMode(!fastMode);
-  }
-
-  /**
    * Close the overlay on Click.
    */
   function onClickOverlay() {
@@ -274,7 +266,6 @@ const Game = ({ difficulty, setDifficulty }) => {
             onClickErase={onClickErase}
             onClickHint={onClickHint}
             onClickMistakesMode={onClickMistakesMode}
-            onClickFastMode={onClickFastMode}
           />
         </div>
       </div>
@@ -293,8 +284,24 @@ const Game = ({ difficulty, setDifficulty }) => {
 
 const mapStateToProps = (state) => ({
   difficulty: state.settings.difficulty,
+  numberSelected: state.game.numberSelected,
+  gameArray: state.game.gameArray,
+  timeGameStarted: state.game.timeGameStarted,
+  cellSelected: state.game.cellSelected,
+  initArray: state.game.initArray,
+  won: state.game.won,
+  colorFlash: state.game.colorFlash,
 });
 
-const mapDispatchToProps = { setDifficulty };
+const mapDispatchToProps = {
+  setDifficulty,
+  setNumberSelected,
+  setGameArray,
+  setTimeGameStarted,
+  setCellSelected,
+  setInitArray,
+  setWon,
+  setColorFlash,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

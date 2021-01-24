@@ -8,8 +8,6 @@ import {
   setTimeTurnStarted,
 } from "../../features/settingsSlice";
 
-import { useSudokuContext } from "../../context/SudokuContext";
-
 /**
  * React component for the Timer in Status Section.
  * Uses the 'useEffect' hook to update the timer every second.
@@ -22,9 +20,8 @@ const Timer = ({
   currentTime,
   setCurrentTime,
   setTimeTurnStarted,
+  won,
 }) => {
-  const { won } = useSudokuContext();
-
   useEffect(() => {
     function tick() {
       setCurrentTime();
@@ -78,6 +75,7 @@ const mapStateToProps = (state) => ({
   timerSetting: state.settings.timerSetting,
   currentTime: state.settings.currentTime,
   timeTurnStarted: state.settings.timeTurnStarted,
+  won: state.game.won,
 });
 
 const mapDispatchToProps = {

@@ -1,11 +1,11 @@
 import React from "react";
-import { useSudokuContext } from "../../context/SudokuContext";
+import { connect } from "react-redux";
 
 /**
  * React component for the Number Selector in the Status Section.
  */
-export const Numbers = (props) => {
-  let { numberSelected } = useSudokuContext();
+const Numbers = (props) => {
+  const { numberSelected } = props;
 
   return (
     <div className="status__numbers">
@@ -35,3 +35,9 @@ export const Numbers = (props) => {
     </div>
   );
 };
+
+const mapStateToProps = (state) => ({
+  numberSelected: state.game.numberSelected,
+});
+
+export default connect(mapStateToProps, null)(Numbers);
