@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
   playerRow: {
     flexGrow: 1,
-    borderBottom: "1px solid gray",
+    borderBottom: "1px solid lightgray",
     display: "flex",
     alignItems: "center",
     padding: "0 20px",
@@ -74,6 +74,30 @@ const useStyles = makeStyles((theme) => ({
   playerRowStatElement: {
     width: "50%",
     textAlign: "center",
+  },
+  puzzle: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "700px",
+    height: "700px",
+    margin: "10px",
+    borderRadius: "20px",
+  },
+  numbersContainer: {
+    display: "flex",
+    flexDirection: "column",
+    borderRadius: "20px",
+    width: "100px",
+    margin: "10px",
+  },
+  number: {
+    flexGrow: 1,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottom: "1px solid lightgray",
+    fontSize: 30,
   },
 }));
 
@@ -138,31 +162,21 @@ const Game = ({ difficulty, onChangeDifficulty }) => {
           </div>
         </div>
         {/* puzzle */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "green",
-            margin: "10px",
-            width: "700px",
-            height: "700px",
-          }}
-        >
+        <Paper className={classes.puzzle} elevation={10}>
           Puzzle
-        </div>
+        </Paper>
         {/* number selector */}
-        <div
-          style={{
-            display: "flex",
-            width: "100px",
-            flexDirection: "column",
-            backgroundColor: "purple",
-            margin: "10px",
-          }}
-        >
-          Numbers
-        </div>
+        <Paper className={classes.numbersContainer} elevation={10}>
+          <div className={classes.number}>1</div>
+          <div className={classes.number}>2</div>
+          <div className={classes.number}>3</div>
+          <div className={classes.number}>4</div>
+          <div className={classes.number}>5</div>
+          <div className={classes.number}>6</div>
+          <div className={classes.number}>7</div>
+          <div className={classes.number}>8</div>
+          <div className={classes.number}>9</div>
+        </Paper>
       </div>
     </>
   );
