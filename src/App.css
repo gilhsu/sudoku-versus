@@ -7,7 +7,7 @@
  * Custom Properties for keeping the CSS 'DRY'!
  */
 :root {
-  --background-color: #fff;
+  --background-color: rgb(236, 237, 247);
   --color-blue: hsl(210, 88%, 56%);
   --color-grey: hsl(213, 30%, 29%);
   --color-grey-light: hsl(213, 30%, 59%);
@@ -32,7 +32,7 @@
  */
 body {
   background: var(--background-color);
-  color: var(--color-blue);
+  /* color: var(--color-blue); */
   font-family: "Source Sans Pro", sans-serif;
   line-height: 1.4em;
   font-weight: 300;

@@ -5,35 +5,24 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 
 import TitleTypography from "./TitleTypography";
-import DifficultyButton from "./DifficultyButton";
-import CoffeeButton from "./CoffeeButton";
-
-import { DIFFICULTY } from "../features/settingsSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    backgroundColor: "white",
+    alignItems: "center",
+    // boxShadow:
+    //   "0px 10px 10px -10px rgba(0,0,0,0.2), 0px 5px 8px 10px rgba(0,0,0,0.02), 0px 1px 14px 0px rgba(0,0,0,0.12)",
   },
   header: {
-    borderBottom: "1px solid lightgray",
+    // borderBottom: "1px solid lightgray",
     minHeight: "100px",
-  },
-  subheader: {
-    borderBottom: "1px solid lightgray",
-    minHeight: "50px",
-  },
-  subheaderButton: {
-    "&:hover": {
-      color: theme.palette.primary.main,
-      backgroundColor: "transparent",
-    },
-  },
-  difficultyContainer: {
-    flexGrow: 1,
+    // width: "85%",
+    // padding: 0,
   },
 }));
 
-const Header = ({ difficulty, onChangeDifficulty }) => {
+const Header = () => {
   const classes = useStyles();
 
   return (
@@ -49,28 +38,6 @@ const Header = ({ difficulty, onChangeDifficulty }) => {
           >
             Rules
           </Button>
-        </Toolbar>
-      </AppBar>
-      <AppBar position="static" color="transparent" elevation={0}>
-        <Toolbar className={classes.subheader}>
-          <div className={classes.difficultyContainer}>
-            <DifficultyButton
-              title={DIFFICULTY.e}
-              difficulty={difficulty}
-              handleClick={() => onChangeDifficulty(DIFFICULTY.e)}
-            />
-            <DifficultyButton
-              title={DIFFICULTY.m}
-              difficulty={difficulty}
-              handleClick={() => onChangeDifficulty(DIFFICULTY.m)}
-            />
-            <DifficultyButton
-              title={DIFFICULTY.h}
-              difficulty={difficulty}
-              handleClick={() => onChangeDifficulty(DIFFICULTY.h)}
-            />
-          </div>
-          <CoffeeButton />
         </Toolbar>
       </AppBar>
     </div>

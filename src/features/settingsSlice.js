@@ -12,19 +12,13 @@ export const initialState = {
   players: [
     {
       id: 0,
-      name: "Michael Scott",
+      name: "Linda",
       score: 0,
       current: true,
     },
     {
       id: 1,
-      name: "Jim Halpert",
-      score: 0,
-      current: false,
-    },
-    {
-      id: 2,
-      name: "Dwight Shrute",
+      name: "Gil",
       score: 0,
       current: false,
     },
@@ -76,6 +70,10 @@ const settingsSlice = createSlice({
       state.players.find((player) => player.current === true).score -= 1;
       return state;
     },
+    resetScore: (state) => {
+      state.players.forEach((player) => (player.score = 0));
+      return state;
+    },
   },
 });
 
@@ -86,6 +84,7 @@ export const {
   setTimeTurnStarted,
   addPoint,
   minusPoint,
+  resetScore,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

@@ -10,6 +10,7 @@ import {
   addPoint,
   nextPlayer,
   setTimeTurnStarted,
+  resetScore,
 } from "./features/settingsSlice";
 import {
   setNumberSelected,
@@ -42,6 +43,7 @@ const Game = ({
   addPoint,
   nextPlayer,
   setTimeTurnStarted,
+  resetScore,
 }) => {
   /**
    * All the variables for holding state:
@@ -78,6 +80,7 @@ const Game = ({
     setTimeGameStarted();
     setCellSelected(-1);
     setHistory([]);
+    resetScore();
     setWon(false);
   }
 
@@ -316,6 +319,7 @@ const mapDispatchToProps = {
   addPoint,
   nextPlayer,
   setTimeTurnStarted,
+  resetScore,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
