@@ -44,6 +44,7 @@ const SettingsContainer = ({
       name: "",
       score: 0,
       current: false,
+      time: 0,
     };
     const updatedPlayerForm = [...formPlayers, newPlayer];
     setFormPlayers(updatedPlayerForm);
