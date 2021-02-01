@@ -66,8 +66,24 @@ const SettingsContainer = ({
   };
 
   const handleStartGame = () => {
-    updatePlayersList(formPlayers);
+    const finalPlayerList = autoFillNames();
+    updatePlayersList(finalPlayerList);
     handleStartGameAnimation();
+  };
+
+  const autoFillNames = () => {
+    const finalPlayerList = [];
+    formPlayers.forEach((player, i) => {
+      if (player.name === "") {
+        const newPlayer = { ...player };
+        newPlayer.name = `Player ${i + 1}`;
+        finalPlayerList.push(newPlayer);
+      } else {
+        finalPlayerList.push(player);
+      }
+    });
+
+    return finalPlayerList;
   };
 
   return (
