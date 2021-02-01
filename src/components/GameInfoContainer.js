@@ -3,13 +3,13 @@ import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
 import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import PauseIcon from "@material-ui/icons/Pause";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 
 import { setIsPaused } from "../features/settingsSlice";
 import { Colors } from "../themes/defaultTheme";
 import PlayersList from "./PlayersList";
+import Timer from "./Timer";
 
 const useStyles = makeStyles((theme) => ({
   leftContainer: {
@@ -21,19 +21,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     height: "175px",
   },
-  timerContainer: {
-    width: "300px",
-    padding: "10px",
-  },
-  timer: {
-    display: "flex",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: "20px",
-    backgroundColor: theme.palette.primary.main,
-    color: "white",
-  },
+
   playPauseContainer: {
     padding: 10,
   },
@@ -67,16 +55,12 @@ const GameInfoContainer = ({ inGame, players, isPaused, setIsPaused }) => {
     <Slide direction="right" in={inGame} mountOnEnter unmountOnExit>
       <div className={classes.leftContainer}>
         <div className={classes.timerPauseContainer}>
-          <div className={classes.timerContainer}>
-            <Paper className={classes.timer} elevation={1}>
-              <Typography variant="h1">30</Typography>
-            </Paper>
-          </div>
+          <Timer />
           <div className={classes.playPauseContainer}>
             <Paper
               className={classes.playPause}
               elevation={1}
-              onClick={setIsPaused}
+              onClick={() => setIsPaused(!isPaused)}
             >
               {playPause}
             </Paper>

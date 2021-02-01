@@ -92,8 +92,8 @@ const settingsSlice = createSlice({
       state.players = action.payload;
       return state;
     },
-    setIsPaused: (state) => {
-      state.isPaused = !state.isPaused;
+    setIsPaused: (state, action) => {
+      state.isPaused = action.payload;
       return state;
     },
   },

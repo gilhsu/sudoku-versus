@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     padding: "0 20px",
     fontWeight: 700,
+    "&:last-child": {
+      borderRadius: "0 0 20px 20px",
+    },
   },
   playerRowTitle: {
     width: "50%",
