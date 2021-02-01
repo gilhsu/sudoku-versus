@@ -26,12 +26,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Game = ({ difficulty, onChangeDifficulty }) => {
+const Game = ({ difficulty, onChangeDifficulty, players }) => {
+  const classes = useStyles();
   const [inGame, setInGame] = useState(false);
   const [showRules, setShowRules] = useState(true);
-  const classes = useStyles();
 
-  const handleGameStartAnimation = () => {
+  console.log("players from game", players);
+
+  const handleStartGameAnimation = () => {
     if (showRules) {
       setShowRules(!showRules);
       setTimeout(() => setInGame(!inGame), 300);
@@ -44,13 +46,16 @@ const Game = ({ difficulty, onChangeDifficulty }) => {
   return (
     <>
       <Header onChangeDifficulty={onChangeDifficulty} difficulty={difficulty} />
-      <Switch checked={inGame} onChange={handleGameStartAnimation} />
+      <Switch checked={inGame} onChange={handleStartGameAnimation} />
       <div className={classes.root}>
         <div className={classes.test}>
           <RulesTile showRules={showRules} />
           <GameInfoContainer inGame={inGame} />
         </div>
-        <PuzzleContainer />
+        <PuzzleContainer
+          inGame={inGame}
+          handleStartGameAnimation={handleStartGameAnimation}
+        />
         <NumberSelector inGame={inGame} />
       </div>
     </>
@@ -59,6 +64,7 @@ const Game = ({ difficulty, onChangeDifficulty }) => {
 
 const mapStateToProps = (state) => ({
   difficulty: state.settings.difficulty,
+  players: state.settings.players,
 });
 
 const mapDispatchToProps = {

@@ -3,22 +3,29 @@ import { format } from "date-fns";
 
 export const DIFFICULTY = {
   e: "EASY",
-  m: "MEDIUM",
+  m: "MED",
   h: "HARD",
+};
+
+export const TIMERLENGTH = {
+  short: 20,
+  medium: 30,
+  long: 45,
 };
 
 export const initialState = {
   difficulty: DIFFICULTY.e,
+  timerLength: TIMERLENGTH.short,
   players: [
     {
       id: 0,
-      name: "Linda",
+      name: "",
       score: 0,
       current: true,
     },
     {
       id: 1,
-      name: "Gil",
+      name: "",
       score: 0,
       current: false,
     },
@@ -34,6 +41,10 @@ const settingsSlice = createSlice({
   reducers: {
     setDifficulty: (state, action) => {
       state.difficulty = action.payload;
+      return state;
+    },
+    setTimerLength: (state, action) => {
+      state.timerLength = action.payload;
       return state;
     },
     nextPlayer: (state) => {
@@ -74,17 +85,23 @@ const settingsSlice = createSlice({
       state.players.forEach((player) => (player.score = 0));
       return state;
     },
+    updatePlayersList: (state, action) => {
+      state.players = action.payload;
+      return state;
+    },
   },
 });
 
 export const {
   setDifficulty,
+  setTimerLength,
   nextPlayer,
   setCurrentTime,
   setTimeTurnStarted,
   addPoint,
   minusPoint,
   resetScore,
+  updatePlayersList,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;
