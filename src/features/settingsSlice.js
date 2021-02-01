@@ -35,6 +35,7 @@ export const initialState = {
   timerSetting: 20,
   currentTime: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
   timeTurnStarted: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
+  isPaused: false,
 };
 
 const settingsSlice = createSlice({
@@ -91,6 +92,10 @@ const settingsSlice = createSlice({
       state.players = action.payload;
       return state;
     },
+    setIsPaused: (state) => {
+      state.isPaused = !state.isPaused;
+      return state;
+    },
   },
 });
 
@@ -104,6 +109,7 @@ export const {
   minusPoint,
   resetScore,
   updatePlayersList,
+  setIsPaused,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import PauseIcon from "@material-ui/icons/Pause";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 
+import { setIsPaused } from "../features/settingsSlice";
 import { Colors } from "../themes/defaultTheme";
 import PlayersList from "./PlayersList";
 
@@ -34,10 +35,10 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   playPauseContainer: {
-    // width: "150px",
     padding: 10,
   },
   playPause: {
+    cursor: "pointer",
     display: "flex",
     height: "100%",
     width: "150px",
@@ -54,8 +55,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GameInfoContainer = ({ inGame, players }) => {
+const GameInfoContainer = ({ inGame, players, isPaused, setIsPaused }) => {
   const classes = useStyles();
+
+  const playPause = isPaused ? (
+    <PlayArrowIcon fontSize="inherit" />
+  ) : (
+    <PauseIcon fontSize="inherit" />
+  );
   return (
     <Slide direction="right" in={inGame} mountOnEnter unmountOnExit>
       <div className={classes.leftContainer}>
@@ -66,8 +73,12 @@ const GameInfoContainer = ({ inGame, players }) => {
             </Paper>
           </div>
           <div className={classes.playPauseContainer}>
-            <Paper className={classes.playPause} elevation={1}>
-              <PauseIcon fontSize="inherit" />
+            <Paper
+              className={classes.playPause}
+              elevation={1}
+              onClick={setIsPaused}
+            >
+              {playPause}
             </Paper>
           </div>
         </div>
@@ -79,8 +90,11 @@ const GameInfoContainer = ({ inGame, players }) => {
 
 const mapStateToProps = (state) => ({
   players: state.settings.players,
+  isPaused: state.settings.isPaused,
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  setIsPaused,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameInfoContainer);
