@@ -33,6 +33,7 @@ const SettingsContainer = ({
   players,
   updatePlayersList,
   handleStartGameAnimation,
+  createNewGame,
 }) => {
   const classes = useStyles();
   const [formPlayers, setFormPlayers] = useState(players);
@@ -69,6 +70,7 @@ const SettingsContainer = ({
     const finalPlayerList = autoFillNames();
     updatePlayersList(finalPlayerList);
     handleStartGameAnimation();
+    createNewGame();
   };
 
   const autoFillNames = () => {

@@ -34,20 +34,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NumberSelector = ({ inGame }) => {
+const NumberSelector = ({ inGame, onClickNumber }) => {
   const classes = useStyles();
   return (
     <Slide direction="left" in={inGame}>
       <Paper className={classes.numbersContainer} elevation={1}>
-        <div className={classes.number}>1</div>
-        <div className={classes.number}>2</div>
-        <div className={classes.number}>3</div>
-        <div className={classes.number}>4</div>
-        <div className={classes.number}>5</div>
-        <div className={classes.number}>6</div>
-        <div className={classes.number}>7</div>
-        <div className={classes.number}>8</div>
-        <div className={classes.number}>9</div>
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((number) => {
+          return (
+            <div
+              className={classes.number}
+              onClick={() => onClickNumber(number.toString())}
+            >
+              {number}
+            </div>
+          );
+        })}
       </Paper>
     </Slide>
   );

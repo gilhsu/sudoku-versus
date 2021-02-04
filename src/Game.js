@@ -212,14 +212,14 @@ const Game = ({
    * On Click Undo,
    * try to Undo the latest change.
    */
-  function onClickUndo() {
-    if (history.length) {
-      let tempHistory = history.slice();
-      let tempArray = tempHistory.pop();
-      setHistory(tempHistory);
-      setGameArray(tempArray);
-    }
-  }
+  // function onClickUndo() {
+  //   if (history.length) {
+  //     let tempHistory = history.slice();
+  //     let tempArray = tempHistory.pop();
+  //     setHistory(tempHistory);
+  //     setGameArray(tempArray);
+  //   }
+  // }
 
   /**
    * On Click Erase,
@@ -236,18 +236,18 @@ const Game = ({
    * On Click Hint,
    * fill the selected cell if its empty or wrong number is filled.
    */
-  function onClickHint() {
-    if (cellSelected !== -1) {
-      _fillCell(cellSelected, solvedArray[cellSelected]);
-    }
-  }
+  // function onClickHint() {
+  //   if (cellSelected !== -1) {
+  //     _fillCell(cellSelected, solvedArray[cellSelected]);
+  //   }
+  // }
 
   /**
    * Toggle Mistakes Mode
    */
-  function onClickMistakesMode() {
-    setMistakesMode(!mistakesMode);
-  }
+  // function onClickMistakesMode() {
+  //   setMistakesMode(!mistakesMode);
+  // }
 
   /**
    * Close the overlay on Click.
@@ -276,10 +276,6 @@ const Game = ({
             onClickNewGame={onClickNewGame}
             onClickNumber={(number) => onClickNumber(number)}
             onChange={(e) => onChangeDifficulty(e)}
-            onClickUndo={onClickUndo}
-            onClickErase={onClickErase}
-            onClickHint={onClickHint}
-            onClickMistakesMode={onClickMistakesMode}
           />
         </div>
       </div>

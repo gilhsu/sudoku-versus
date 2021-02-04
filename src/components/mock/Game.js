@@ -5,10 +5,10 @@ import { connect } from "react-redux";
 
 import { setDifficulty } from "../../features/settingsSlice";
 import Header from "../Header";
-import NumberSelector from "../NumberSelector";
+
 import RulesTile from "../RulesTile";
-import GameInfoContainer from "../GameInfoContainer";
-import PuzzleContainer from "../PuzzleContainer";
+import InfoContainer from "../InfoContainer";
+import MainContainer from "../MainContainer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,13 +47,12 @@ const Game = ({ difficulty, onChangeDifficulty, players }) => {
       <div className={classes.root}>
         <div className={classes.test}>
           <RulesTile showRules={showRules} />
-          <GameInfoContainer inGame={inGame} />
+          <InfoContainer inGame={inGame} />
         </div>
-        <PuzzleContainer
+        <MainContainer
           inGame={inGame}
           handleStartGameAnimation={handleStartGameAnimation}
         />
-        <NumberSelector inGame={inGame} />
       </div>
     </>
   );
