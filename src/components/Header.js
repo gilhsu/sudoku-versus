@@ -11,14 +11,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: "white",
     alignItems: "center",
-    // boxShadow:
-    //   "0px 10px 10px -10px rgba(0,0,0,0.2), 0px 5px 8px 10px rgba(0,0,0,0.02), 0px 1px 14px 0px rgba(0,0,0,0.12)",
   },
   header: {
-    // borderBottom: "1px solid lightgray",
     minHeight: "100px",
-    // width: "85%",
-    // padding: 0,
   },
 }));
 
