@@ -10,7 +10,6 @@ import {
   addPoint,
   nextPlayer,
   setTimeTurnStarted,
-  resetScore,
 } from "./features/settingsSlice";
 import {
   setNumberSelected,
@@ -43,7 +42,6 @@ const Game = ({
   addPoint,
   nextPlayer,
   setTimeTurnStarted,
-  resetScore,
 }) => {
   /**
    * All the variables for holding state:
@@ -80,7 +78,6 @@ const Game = ({
     setTimeGameStarted();
     setCellSelected(-1);
     setHistory([]);
-    resetScore();
     setWon(false);
   }
 
@@ -212,14 +209,14 @@ const Game = ({
    * On Click Undo,
    * try to Undo the latest change.
    */
-  // function onClickUndo() {
-  //   if (history.length) {
-  //     let tempHistory = history.slice();
-  //     let tempArray = tempHistory.pop();
-  //     setHistory(tempHistory);
-  //     setGameArray(tempArray);
-  //   }
-  // }
+  function onClickUndo() {
+    if (history.length) {
+      let tempHistory = history.slice();
+      let tempArray = tempHistory.pop();
+      setHistory(tempHistory);
+      setGameArray(tempArray);
+    }
+  }
 
   /**
    * On Click Erase,
@@ -236,18 +233,18 @@ const Game = ({
    * On Click Hint,
    * fill the selected cell if its empty or wrong number is filled.
    */
-  // function onClickHint() {
-  //   if (cellSelected !== -1) {
-  //     _fillCell(cellSelected, solvedArray[cellSelected]);
-  //   }
-  // }
+  function onClickHint() {
+    if (cellSelected !== -1) {
+      _fillCell(cellSelected, solvedArray[cellSelected]);
+    }
+  }
 
   /**
    * Toggle Mistakes Mode
    */
-  // function onClickMistakesMode() {
-  //   setMistakesMode(!mistakesMode);
-  // }
+  function onClickMistakesMode() {
+    setMistakesMode(!mistakesMode);
+  }
 
   /**
    * Close the overlay on Click.
@@ -276,6 +273,10 @@ const Game = ({
             onClickNewGame={onClickNewGame}
             onClickNumber={(number) => onClickNumber(number)}
             onChange={(e) => onChangeDifficulty(e)}
+            onClickUndo={onClickUndo}
+            onClickErase={onClickErase}
+            onClickHint={onClickHint}
+            onClickMistakesMode={onClickMistakesMode}
           />
         </div>
       </div>
@@ -315,7 +316,6 @@ const mapDispatchToProps = {
   addPoint,
   nextPlayer,
   setTimeTurnStarted,
-  resetScore,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
