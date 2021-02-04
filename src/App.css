@@ -9,7 +9,8 @@
 :root {
   --background-color: rgb(236, 237, 247);
   --color-blue: hsl(210, 88%, 56%);
-  --color-grey: hsl(213, 30%, 29%);
+  --color-grey: hsl(0, 0%, 57%);
+  --color-grey-dark: hsl(0, 0%, 23%);
   --color-grey-light: hsl(213, 30%, 59%);
   --color-grey-lighter: hsl(213, 30%, 79%);
   --color-orange: hsl(34, 26%, 89%);
@@ -115,32 +116,33 @@ body {
 }
 
 .game__board {
-  font-family: "Roboto", sans-serif;
-  font-size: 26px;
+  font-size: 40px;
   margin: 30px 0;
   border: 2px solid var(--color-grey);
   border-collapse: collapse;
 }
 
 .game__row:nth-child(3n) {
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid var(--color-grey);
 }
 
 .game__cell {
   border: 1px solid var(--color-grey-lighter);
-  padding: 12px 16px;
-  color: var(--background-color);
+  height: 67px;
+  width: 67px;
+  color: white;
   cursor: pointer;
+  text-align: center;
 }
 
 .game__cell.game__cell--filled {
-  color: var(--color-gray);
+  color: var(--color-grey);
   cursor: default;
 }
 
 .game__cell.game__cell--userfilled {
-  color: var(--color-gray);
-  font-weight: 900;
+  color: var(--color-grey-dark);
+  font-weight: 500;
 }
 
 .game__cell.game__cell--selected {
