@@ -75,7 +75,6 @@ const PuzzleContainer = ({
 }) => {
   const [solvedArray, setSolvedArray] = useState([]);
   const [history, setHistory] = useState([]);
-  const [overlay, setOverlay] = useState(false);
   const classes = useStyles();
 
   function _createNewGame(newDifficulty) {
@@ -109,7 +108,6 @@ const PuzzleContainer = ({
       setGameArray(tempArray);
 
       if (_isSolved(index, value)) {
-        setOverlay(true);
         setWon(true);
       }
     }
