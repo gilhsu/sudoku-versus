@@ -6,6 +6,7 @@ import { connect } from "react-redux";
  */
 const GameSection = (props) => {
   const { gameArray, cellSelected, initArray, colorFlash } = props;
+  console.log("props", props);
   const rows = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
   /**

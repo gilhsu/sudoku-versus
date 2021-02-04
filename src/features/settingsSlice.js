@@ -3,35 +3,39 @@ import { format } from "date-fns";
 
 export const DIFFICULTY = {
   e: "EASY",
-  m: "MEDIUM",
+  m: "MED",
   h: "HARD",
+};
+
+export const TIMERLENGTH = {
+  short: 20,
+  medium: 30,
+  long: 45,
 };
 
 export const initialState = {
   difficulty: DIFFICULTY.e,
+  timerLength: TIMERLENGTH.short,
   players: [
     {
       id: 0,
-      name: "Michael Scott",
+      name: "",
       score: 0,
       current: true,
+      time: 0,
     },
     {
       id: 1,
-      name: "Jim Halpert",
+      name: "",
       score: 0,
       current: false,
-    },
-    {
-      id: 2,
-      name: "Dwight Shrute",
-      score: 0,
-      current: false,
+      time: 0,
     },
   ],
   timerSetting: 20,
   currentTime: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
   timeTurnStarted: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
+  isPaused: false,
 };
 
 const settingsSlice = createSlice({
@@ -40,6 +44,10 @@ const settingsSlice = createSlice({
   reducers: {
     setDifficulty: (state, action) => {
       state.difficulty = action.payload;
+      return state;
+    },
+    setTimerLength: (state, action) => {
+      state.timerLength = action.payload;
       return state;
     },
     nextPlayer: (state) => {
@@ -76,16 +84,32 @@ const settingsSlice = createSlice({
       state.players.find((player) => player.current === true).score -= 1;
       return state;
     },
+    resetScore: (state) => {
+      state.players.forEach((player) => (player.score = 0));
+      return state;
+    },
+    updatePlayersList: (state, action) => {
+      state.players = action.payload;
+      return state;
+    },
+    setIsPaused: (state, action) => {
+      state.isPaused = action.payload;
+      return state;
+    },
   },
 });
 
 export const {
   setDifficulty,
+  setTimerLength,
   nextPlayer,
   setCurrentTime,
   setTimeTurnStarted,
   addPoint,
   minusPoint,
+  resetScore,
+  updatePlayersList,
+  setIsPaused,
 } = settingsSlice.actions;
 
 export default settingsSlice.reducer;

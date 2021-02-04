@@ -4,7 +4,8 @@ import { Provider } from "react-redux";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import "./App.css";
-import Game from "./Game";
+// import Game from "./Game";
+import Game from "./components/mock/Game";
 import theme from "./themes/defaultTheme";
 
 import settingsReducer from "./features/settingsSlice";
