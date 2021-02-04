@@ -23,7 +23,7 @@ const gameSlice = createSlice({
       state.gameArray = action.payload;
       return state;
     },
-    setTimeGameStarted: (state) => {
+    setTimeGameStarted: (state, action) => {
       state.timeGameStarted = format(new Date(), "yyyy-MM-dd'T'HH:mm:ss");
       return state;
     },

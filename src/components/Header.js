@@ -5,19 +5,35 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 
 import TitleTypography from "./TitleTypography";
+import DifficultyButton from "./DifficultyButton";
+import CoffeeButton from "./CoffeeButton";
+
+import { DIFFICULTY } from "../features/settingsSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    backgroundColor: "white",
-    alignItems: "center",
   },
   header: {
+    borderBottom: "1px solid lightgray",
     minHeight: "100px",
+  },
+  subheader: {
+    borderBottom: "1px solid lightgray",
+    minHeight: "50px",
+  },
+  subheaderButton: {
+    "&:hover": {
+      color: theme.palette.primary.main,
+      backgroundColor: "transparent",
+    },
+  },
+  difficultyContainer: {
+    flexGrow: 1,
   },
 }));
 
-const Header = () => {
+const Header = ({ difficulty, onChangeDifficulty }) => {
   const classes = useStyles();
 
   return (
@@ -33,6 +49,28 @@ const Header = () => {
           >
             Rules
           </Button>
+        </Toolbar>
+      </AppBar>
+      <AppBar position="static" color="transparent" elevation={0}>
+        <Toolbar className={classes.subheader}>
+          <div className={classes.difficultyContainer}>
+            <DifficultyButton
+              title={DIFFICULTY.e}
+              difficulty={difficulty}
+              handleClick={() => onChangeDifficulty(DIFFICULTY.e)}
+            />
+            <DifficultyButton
+              title={DIFFICULTY.m}
+              difficulty={difficulty}
+              handleClick={() => onChangeDifficulty(DIFFICULTY.m)}
+            />
+            <DifficultyButton
+              title={DIFFICULTY.h}
+              difficulty={difficulty}
+              handleClick={() => onChangeDifficulty(DIFFICULTY.h)}
+            />
+          </div>
+          <CoffeeButton />
         </Toolbar>
       </AppBar>
     </div>
