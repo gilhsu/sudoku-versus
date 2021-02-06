@@ -43,7 +43,7 @@ const Game = ({ difficulty, onChangeDifficulty, players }) => {
   return (
     <>
       <Header onChangeDifficulty={onChangeDifficulty} difficulty={difficulty} />
-      <Switch checked={inGame} onChange={handleStartGameAnimation} />
+      {/* <Switch checked={inGame} onChange={handleStartGameAnimation} /> */}
       <div className={classes.root}>
         <div className={classes.infoWrapper}>
           <RulesTile showRules={showRules} />

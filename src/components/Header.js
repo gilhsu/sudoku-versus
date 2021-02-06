@@ -12,9 +12,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     alignItems: "center",
   },
-  header: {
-    minHeight: "100px",
-  },
 }));
 
 const Header = () => {
@@ -23,15 +20,15 @@ const Header = () => {
   return (
     <div className={classes.root}>
       <AppBar position="static" color="transparent" elevation={0}>
-        <Toolbar className={classes.header}>
+        <Toolbar>
           <TitleTypography>SUDOKU VERSUS</TitleTypography>
           <Button
-            size="large"
-            variant="contained"
+            size="small"
+            variant="outlined"
             color="primary"
             disableElevation
           >
-            Rules
+            Buy Me Boba
           </Button>
         </Toolbar>
       </AppBar>
