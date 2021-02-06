@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => {
   return {
     title: {
       flexGrow: 1,
-      fontSize: 40,
+      fontSize: 30,
     },
   };
 });

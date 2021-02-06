@@ -54,7 +54,7 @@ const SettingButton = ({ value, action, currentSetting }) => {
 const SettingPicker = ({ title, options, currentSetting, action }) => {
   return (
     <>
-      <Typography variant="h4" color="primary" paragraph>
+      <Typography variant="h5" color="primary" paragraph>
         {title}
       </Typography>
       <Grid container justify="space-between">

@@ -17,11 +17,11 @@ import PlayersForm from "./PlayersForm";
 
 const useStyles = makeStyles((theme) => ({
   startButton: {
-    height: "125px",
-    borderRadius: "20px",
+    height: "100px",
+    borderRadius: "10px",
   },
   settingPickersContainer: {
-    height: 425,
+    height: 405,
   },
 }));
 
@@ -138,7 +138,7 @@ const SettingsContainer = ({
         className={classes.startButton}
         onClick={handleStartGame}
       >
-        <Typography variant="h3">Start Game</Typography>
+        <Typography variant="h4">Start Game</Typography>
       </Button>
     </>
   );

@@ -12,6 +12,12 @@ const useStyles = makeStyles((theme) => ({
     margin: 10,
     padding: 30,
   },
+  rules: {
+    marginBottom: "30px",
+  },
+  title: {
+    marginBottom: "5px",
+  },
 }));
 
 const RulesTile = ({ showRules }) => {
@@ -19,19 +25,22 @@ const RulesTile = ({ showRules }) => {
   return (
     <Fade in={showRules} mountOnEnter unmountOnExit>
       <Paper className={classes.rulesContainer} elevation={1}>
-        <Typography variant="h4" color="primary" paragraph>
-          Rules
-        </Typography>
-        <Typography variant="body1" color="secondary" paragraph>
-          Sudoku Versus is an exciting and competitive twist to sudoku! Players
-          take timed-turns filling out the puzzle and earn points for correct
-          answers while points are deducted for letting the timer run out.
-        </Typography>
-        <Typography variant="body1" color="secondary" paragraph>
-          Highest number of points wins and the lowest time spent overall is the
-          tie-breaker.
-        </Typography>
-        <Typography variant="h5" color="primary" paragraph>
+        <div className={classes.rules}>
+          <Typography className={classes.title} variant="h5" color="primary">
+            Rules
+          </Typography>
+          <Typography variant="body1" color="secondary" paragraph>
+            Sudoku Versus is an exciting and competitive twist to sudoku!
+            Players take timed-turns filling out the puzzle and earn points for
+            correct answers while points are deducted for letting the timer run
+            out.
+          </Typography>
+          <Typography variant="body1" color="secondary" paragraph>
+            Highest number of points wins and the lowest time spent overall is
+            the tie-breaker.
+          </Typography>
+        </div>
+        <Typography className={classes.title} variant="h5" color="primary">
           Points Structure
         </Typography>
         <Typography variant="h6">Correct Answer</Typography>

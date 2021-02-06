@@ -9,7 +9,7 @@ import { Colors } from "../themes/defaultTheme";
 
 const useStyles = makeStyles((theme) => ({
   addRemovePlayerButton: {
-    width: "120px",
+    width: "110px",
     "&:hover": {
       backgroundColor: Colors.selectedBackgroundColor,
       color: Colors.primary,
@@ -43,7 +43,7 @@ const PlayersForm = ({
     <>
       <Grid item container spacing={2}>
         <Grid item>
-          <Typography variant="h4" color="primary">
+          <Typography variant="h5" color="primary">
             Players (4 max)
           </Typography>
         </Grid>
