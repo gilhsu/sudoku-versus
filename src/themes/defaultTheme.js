@@ -23,6 +23,6 @@ const theme = createMuiTheme({
 theme.typography.h1.fontWeight = 700;
 theme.typography.h5.fontWeight = 700;
 theme.typography.h6.fontWeight = 700;
-theme.typography.body1.fontSize = "18px";
+theme.typography.body1.fontSize = "16px";
 
 export default theme;
