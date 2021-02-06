@@ -17,10 +17,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     fontFamily: '"Karla", "san-serif"',
   },
-  test: {
+  infoWrapper: {
     display: "flex",
     justifyContent: "center",
-    width: "450px",
+    width: "400px",
     fontFamily: '"Karla", "san-serif"',
   },
 }));
@@ -45,7 +45,7 @@ const Game = ({ difficulty, onChangeDifficulty, players }) => {
       <Header onChangeDifficulty={onChangeDifficulty} difficulty={difficulty} />
       <Switch checked={inGame} onChange={handleStartGameAnimation} />
       <div className={classes.root}>
-        <div className={classes.test}>
+        <div className={classes.infoWrapper}>
           <RulesTile showRules={showRules} />
           <InfoContainer inGame={inGame} />
         </div>
