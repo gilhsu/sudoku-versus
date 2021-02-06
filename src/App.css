@@ -116,7 +116,7 @@ body {
 }
 
 .game__board {
-  font-size: 40px;
+  font-size: 30px;
   margin: 30px 0;
   border: 2px solid var(--color-grey);
   border-collapse: collapse;
@@ -128,8 +128,8 @@ body {
 
 .game__cell {
   border: 1px solid var(--color-grey-lighter);
-  height: 67px;
-  width: 67px;
+  height: 60px;
+  width: 60px;
   color: white;
   cursor: pointer;
   text-align: center;
