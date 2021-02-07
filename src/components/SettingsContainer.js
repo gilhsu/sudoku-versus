@@ -70,7 +70,7 @@ const SettingsContainer = ({
     const finalPlayerList = autoFillNames();
     updatePlayersList(finalPlayerList);
     handleStartGameAnimation();
-    createNewGame();
+    createNewGame(difficulty);
   };
 
   const autoFillNames = () => {

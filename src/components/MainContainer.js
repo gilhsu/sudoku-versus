@@ -3,7 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { connect } from "react-redux";
 
-import { getUniqueSudoku } from "../solver/UniqueSudoku";
+// import { getUniqueSudoku } from "../solver/UniqueSudoku";
+import { getPuzzle } from "../puzzles/formatPuzzles";
 import SettingsContainer from "./SettingsContainer";
 import GameSection from "./puzzle/layout/GameSection";
 import NumberSelector from "./NumberSelector";
@@ -69,7 +70,6 @@ const PuzzleContainer = ({
   setWon,
   cellSelected,
   nextPlayer,
-  difficulty,
   setTimeGameStarted,
   resetScore,
 }) => {
@@ -78,10 +78,14 @@ const PuzzleContainer = ({
   const classes = useStyles();
 
   function _createNewGame(newDifficulty) {
-    let [temporaryInitArray, temporarySolvedArray] = getUniqueSudoku(
-      difficulty,
-      newDifficulty
-    );
+    // let [temporaryInitArray, temporarySolvedArray] = getUniqueSudoku(
+    //   difficulty,
+    //   newDifficulty
+    // );
+
+    const { puzzle, solution } = getPuzzle(newDifficulty);
+    const temporaryInitArray = puzzle;
+    const temporarySolvedArray = solution;
 
     setInitArray(temporaryInitArray);
     setGameArray(temporaryInitArray);
@@ -106,6 +110,7 @@ const PuzzleContainer = ({
 
       tempArray[index] = value;
       setGameArray(tempArray);
+      console.log("_isSolved(index, value)", _isSolved(index, value));
 
       if (_isSolved(index, value)) {
         setWon(true);
@@ -162,8 +167,11 @@ const PuzzleContainer = ({
   function _isSolved(index, value) {
     if (
       gameArray.every((cell, cellIndex) => {
-        if (cellIndex === index) return value === solvedArray[cellIndex];
-        else return cell === solvedArray[cellIndex];
+        if (cellIndex === index) {
+          return value === solvedArray[cellIndex];
+        } else {
+          return cell === solvedArray[cellIndex];
+        }
       })
     ) {
       return true;
