@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 
 import {
   DIFFICULTY,
+  difficulty,
   setDifficulty,
   setTimerLength,
   TIMERLENGTH,
@@ -70,7 +71,7 @@ const SettingsContainer = ({
     const finalPlayerList = autoFillNames();
     updatePlayersList(finalPlayerList);
     handleStartGameAnimation();
-    createNewGame();
+    createNewGame(difficulty);
   };
 
   const autoFillNames = () => {
