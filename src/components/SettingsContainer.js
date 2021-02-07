@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button";
 
 import {
   DIFFICULTY,
-  difficulty,
   setDifficulty,
   setTimerLength,
   TIMERLENGTH,

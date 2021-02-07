@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { connect } from "react-redux";
 
-import { getUniqueSudoku } from "../solver/UniqueSudoku";
+// import { getUniqueSudoku } from "../solver/UniqueSudoku";
 import { getPuzzle } from "../puzzles/formatPuzzles";
 import SettingsContainer from "./SettingsContainer";
 import GameSection from "./puzzle/layout/GameSection";
@@ -13,7 +13,6 @@ import {
   addPoint,
   nextPlayer,
   setTimeTurnStarted,
-  DIFFICULTY,
 } from "../features/settingsSlice";
 import {
   setCellSelected,
