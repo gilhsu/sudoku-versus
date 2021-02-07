@@ -70,7 +70,6 @@ const PuzzleContainer = ({
   setWon,
   cellSelected,
   nextPlayer,
-  difficulty,
   setTimeGameStarted,
   resetScore,
 }) => {
@@ -83,10 +82,6 @@ const PuzzleContainer = ({
     //   difficulty,
     //   newDifficulty
     // );
-
-    // const { puzzle, solution } = easy[0];
-    // const stringPuzzle = puzzle.map((number) => number.toString());
-    // const stringSolution = solution.map((number) => number.toString());
 
     const { puzzle, solution } = getPuzzle(newDifficulty);
     const temporaryInitArray = puzzle;
