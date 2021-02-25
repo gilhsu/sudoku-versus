@@ -32,7 +32,6 @@ export const initialState = {
       time: 0,
     },
   ],
-  timerSetting: 20,
   currentTime: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
   timeTurnStarted: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
   isPaused: false,
