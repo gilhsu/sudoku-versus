@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
  */
 const Timer = ({
   nextPlayer,
-  timerSetting,
+  timerLength,
   timeTurnStarted,
   currentTime,
   setCurrentTime,
@@ -55,7 +55,7 @@ const Timer = ({
     new Date(currentTime),
     new Date(timeTurnStarted)
   );
-  const timeRemaining = timerSetting - secondsTotal;
+  const timeRemaining = timerLength - secondsTotal;
 
   useEffect(() => {
     const endTurnNoAnswer = () => {
@@ -82,7 +82,7 @@ const Timer = ({
 
 const mapStateToProps = (state) => ({
   players: state.settings.players,
-  timerSetting: state.settings.timerSetting,
+  timerLength: state.settings.timerLength,
   currentTime: state.settings.currentTime,
   timeTurnStarted: state.settings.timeTurnStarted,
   won: state.game.won,
